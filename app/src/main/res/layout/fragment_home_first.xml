@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background_white"
+    android:orientation="vertical">
+
+    <!--title-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:paddingStart="@dimen/layout_margin_horizontal"
+        android:paddingEnd="@dimen/layout_margin_horizontal">
+
+        <TextView
+            android:id="@+id/home_first_title_tv_say_hello"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fist_title_time_say_hello"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_20" />
+
+        <ImageView
+            android:id="@+id/home_first_iv_add_friend"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_add_friend" />
+
+        <ImageView
+            android:id="@+id/home_first_iv_scan"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/home_first_iv_add_friend"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@id/home_first_iv_add_friend"
+            android:src="@mipmap/icon_scan" />
+
+        <ImageView
+            android:id="@+id/home_first_iv_qr_code"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/home_first_iv_scan"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@id/home_first_iv_scan"
+            android:src="@mipmap/icon_qr_code" />
+    </RelativeLayout>
+
+    <!--banner-->
+
+    <com.night.basecore.widget.circleslidingindicator.CircleSlidingIndicator
+        android:id="@+id/home_first_circle_sliding_indicator_banner"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="@dimen/layout_margin_vertical"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:layout_marginBottom="@dimen/layout_margin_vertical">
+
+    </com.night.basecore.widget.circleslidingindicator.CircleSlidingIndicator>
+
+    <include layout="@layout/line_horizontal_cyan_dark_6" />
+
+    <!--myself-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="@dimen/layout_margin_vertical"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:background="@drawable/layout_background_cyan_circular_corner">
+
+        <com.night.basecore.widget.customimageview.widget.CustomShapeImageView
+            android:id="@+id/home_first_custom_iv_myself"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_margin_horizontal"
+            android:src="@mipmap/user_self" />
+
+        <include layout="@layout/item_first_myself_number" />
+
+        <include layout="@layout/item_first_myself_and_partner_tip" />
+
+    </RelativeLayout>
+
+    <!--partner-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="@dimen/layout_margin_vertical"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:background="@drawable/layout_background_light_orange_circular_corner">
+
+        <com.night.basecore.widget.customimageview.widget.CustomShapeImageView
+            android:id="@+id/home_first_custom_iv_partner"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_margin_horizontal"
+            android:src="@mipmap/user_partner" />
+
+        <include layout="@layout/item_first_partner_number" />
+
+        <include layout="@layout/item_first_myself_and_partner_tip" />
+    </RelativeLayout>
+
+    <!--告白墙-->
+    <com.night.basecore.widget.verticalviewpager.VerticalViewPager
+        android:id="@+id/home_first_circle_sliding_indicator_white_wall"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="@dimen/layout_margin_vertical"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:layout_marginBottom="@dimen/layout_margin_vertical"
+        android:background="@drawable/layout_background_light_pink_circular_corner">
+
+    </com.night.basecore.widget.verticalviewpager.VerticalViewPager>
+
+    <include layout="@layout/line_horizontal_cyan_dark_6" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_first_layout_function_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="@dimen/layout_margin_vertical"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal" />
+
+</LinearLayout>

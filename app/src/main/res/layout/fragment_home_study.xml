@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background_white">
+
+    <TextView
+        android:id="@+id/home_study_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_layout_height"
+        android:text="@string/home_study"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_20"
+        android:gravity="center"
+        android:background="@color/layout_background_dark_cyan"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_study_recycle_view_function_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/home_study_tv_title"/>
+
+
+</RelativeLayout>

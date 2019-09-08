@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background_white">
+
+    <include
+        android:id="@+id/select_word_title_layout"
+        layout="@layout/common_activity_title_layout" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/select_word_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/select_word_title_layout"
+        app:tabIndicatorColor="@color/cyan_dark" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/select_word_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/select_word_bottom_layout"
+        android:layout_below="@id/select_word_tablayout" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/layout_background_dark_cyan_50"
+        android:layout_above="@+id/select_word_bottom_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
+        <TextView
+            android:id="@+id/select_word_tv_selected_number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/text_size_14"
+            android:text="@string/select_word_selected_word_number"
+            android:gravity="center"
+            android:textColor="@color/text_dark_black"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"/>
+        <include
+            layout="@layout/line_vertical_black" />
+        <TextView
+            android:id="@+id/select_word_tv_recommend_number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/text_size_14"
+            android:text="建议选 50"
+            android:textColor="@color/text_dark_black"
+            android:gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/select_word_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/select_word_line"
+            layout="@layout/line_horizontal_cyan_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/select_word_layout_list_select"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:foreground="@drawable/ripple_forground"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/icon_list_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/select_word_list_select"
+                    android:textColor="@color/text_dark_cyan"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <include layout="@layout/line_vertical_dark_cyan" />
+
+            <LinearLayout
+                android:id="@+id/select_word_layout_random_select"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:foreground="@drawable/ripple_forground"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/icon_random_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/select_word_random_select"
+                    android:textColor="@color/text_dark_cyan"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <include layout="@layout/line_vertical_dark_cyan" />
+
+            <LinearLayout
+                android:id="@+id/select_word_layout_commit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:foreground="@drawable/ripple_forground"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/icon_commit" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/select_word_commit"
+                    android:textColor="@color/text_dark_cyan"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background_white">
+
+    <include
+        android:id="@+id/personal_plan_title"
+        layout="@layout/common_activity_title_layout"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/personal_plan_recycle_view_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/personal_plan_title"/>
+
+
+</RelativeLayout>

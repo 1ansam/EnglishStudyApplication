@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_marginStart="@dimen/layout_margin_horizontal"
+    android:layout_marginEnd="@dimen/layout_margin_horizontal">
+
+    <CheckBox
+        android:id="@+id/select_word_item_line_checkbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:button="@null"
+        android:background="@drawable/button_circle_background_selector" />
+
+    <TextView
+        android:id="@+id/select_word_item_line_tv_name"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="English"
+        android:layout_toEndOf="@id/select_word_item_line_checkbox"
+        android:paddingStart="12dp"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/text_dark_black"/>
+
+</RelativeLayout>

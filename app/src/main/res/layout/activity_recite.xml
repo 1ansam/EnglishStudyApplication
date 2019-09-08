@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:background="@color/layout_background_white">
+
+    <include
+        android:id="@+id/recite_layout_title"
+        layout="@layout/common_activity_title_layout" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/recite_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/recite_layout_title"
+        android:clipChildren="false"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="50dp" />
+
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<resources>
+
+    <!-- layout dimen-->
+    <!--标题栏高度-->
+    <dimen name="title_layout_height">48dp</dimen>
+    <!--底部菜单高度-->
+    <dimen name="bottom_layout_height">56dp</dimen>
+    <!--内容页菜单高度-->
+    <dimen name="menu_layout_height">48dp</dimen>
+
+    <!--线条宽度-->
+    <dimen name="line_common_height">1dp</dimen>
+    <dimen name="line_common_width">1dp</dimen>
+    <dimen name="line_common_stroke_width">1px</dimen>
+    <dimen name="line_button_height">1dp</dimen>
+    <dimen name="line_common_height_6">6dp</dimen>
+
+    <dimen name="edit_common_height">48dp</dimen>
+
+    <dimen name="layout_margin_left">12dp</dimen>
+    <dimen name="layout_margin_right">12dp</dimen>
+    <dimen name="layout_margin_horizontal">12dp</dimen>
+    <dimen name="layout_margin_vertical">12dp</dimen>
+    <dimen name="layout_mini_margin_vertical">2dp</dimen>
+
+    <dimen name="widget_margin_5">5dp</dimen>
+    <dimen name="widget_margin_8">8dp</dimen>
+    <dimen name="widget_margin_10">10dp</dimen>
+    <dimen name="widget_margin_15">15dp</dimen>
+    <dimen name="widget_margin_20">20dp</dimen>
+
+    <!--按钮圆角度数-->
+    <dimen name="button_corners_radius">4dp</dimen>
+    <dimen name="button_circular_radius">20dp</dimen>
+
+    <!--登录页-->
+    <dimen name="login_tab_title_height">60dp</dimen>
+    <dimen name="login_linear_layout_height">48dp</dimen>
+    <dimen name="login_linear_layout_width">332dp</dimen>
+    <dimen name="login_edit_text_layout_height">48dp</dimen>
+    <dimen name="login_edit_text_layout_width">262dp</dimen>
+    <dimen name="login_linear_layout_margin_top">12dp</dimen>
+    <dimen name="login_image_view_size">20dp</dimen>
+    <dimen name="login_btn_margin_top">44dp</dimen>
+    <dimen name="login_edit_text_margin_left">12dp</dimen>
+
+    <!--背单词页-->
+    <dimen name="recite_layout_margin_horizontal">24dp</dimen>
+    <dimen name="recite_layout_margin_veritical">12dp</dimen>
+    <dimen name="recite_layout_height">32dp</dimen>
+
+
+
+</resources>

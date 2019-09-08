@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_background_white">
+
+    <include
+        android:id="@+id/personal_info_titile"
+        layout="@layout/common_activity_title_layout"/>
+
+    <com.night.basecore.widget.customimageview.widget.CustomShapeImageView
+        android:id="@+id/personal_info_iv_user_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/personal_info_titile"
+        android:src="@mipmap/user_self"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/personal_info_recycle_view_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/personal_info_iv_user_icon"/>
+
+</RelativeLayout>
