@@ -11,11 +11,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.night.app.R;
-import com.night.app.business.account.HomeAccountFragment;
+import com.night.app.business.account.account.HomeAccountFragment;
 import com.night.app.business.activity.HomeActivityFragment;
 import com.night.app.business.first.HomeFirstFragment;
 import com.night.app.business.home.adapter.HomeFragmentAdapter;
-import com.night.app.business.study.HomeStudyFragment;
+import com.night.app.business.study.study.HomeStudyFragment;
 import com.night.basecore.widget.viewpager.tabSelectListener;
 import com.night.app.base.activity.BaseActivity;
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ADD8E6</color>
+    <color name="colorPrimaryDark">#A2B5CD</color>
+    <color name="colorAccent">#A2B5CD</color>
+
+    <!--主题色-->
+    <color name="theme_cyan">#ADD8E6</color>
+
+    <!--背景色-->
+    <color name="white_transparent_background_00">#00ffffff</color>
+    <color name="white_transparent_background_30">#30ffffff</color>
+    <color name="white_transparent_background_50">#50ffffff</color>
+    <color name="bottom_background_white">#fffafa</color>
+    <color name="layout_background_white">#fffafa</color>
+    <color name="layout_background_transparent_50_cyan">#50ADD3EE</color>
+    <color name="layout_background_light_cyan">#EDEDED</color>
+    <color name="layout_background_dark_cyan">#A2B5CD</color>
+    <color name="layout_background_dark_cyan_50">#50A2B5CD</color>
+    <color name="layout_background_light_orange">#50FFDEAD</color>
+    <color name="layout_background_light_pink">#30ffc1c1</color>
+    <color name="layout_background_gray">#EBEBEB</color>
+    <!--按钮颜色-->
+    <color name="btn_cyan">#ADD3EE</color>
+
+    <!--线条颜色-->
+    <color name="line_cyan_color">#ADD3EE</color>
+    <color name="line_white_color">#FFFFFF</color>
+    <color name="line_transparent80_white_color">#80FFFFFF</color>
+    <color name="line_gray_color">#9a9a9a</color>
+    <color name="line_cyan_dark">#A2B5CD</color>
+
+    <!--文字颜色-->
+    <color name="text_dark_black">#000000</color>
+    <color name="text_black">#444444</color>
+    <color name="text_gray">#9a9a9a</color>
+    <color name="text_hint">#9a9a9a</color>
+    <color name="text_white">#ffffff</color>
+    <color name="text_light_white">#90ffffff</color>
+    <color name="text_cyan">#ADD3EE</color>
+    <color name="text_dark_cyan">#A2B5CD</color>
+    <color name="text_red">#FF6A6A</color>
+    <color name="text_orange">#FF8C00</color>
+    <color name="text_green">#7CCD7C</color>
+    <color name="text_pink">#FFC1C1</color>
+    <color name="text_gray_white">#EEEEE0</color>
+
+    <!--常用基础色-->
+    <color name="transparent">#00ffffff</color>
+    <color name="cyan">#ADD8E6</color>
+    <color name="cyan_dark">#A2B5CD</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+</resources>

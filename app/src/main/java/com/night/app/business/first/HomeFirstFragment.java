@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.night.app.R;
 import com.night.app.business.first.adapter.FunctionRecycleViewAdapter;
-import com.night.app.business.whitewall.adapter.WhiteWallVerticalPagerAdapter;
-import com.night.app.business.whitewall.wrapper.WhiteWallWrapper;
+import com.night.app.business.first.whitewall.adapter.WhiteWallVerticalPagerAdapter;
+import com.night.app.business.first.whitewall.wrapper.WhiteWallWrapper;
 import com.night.basecore.widget.circleslidingindicator.CircleSlidingIndicator;
 import com.night.basecore.widget.customimageview.widget.CustomShapeImageView;
 import com.night.basecore.widget.verticalviewpager.VerticalViewPager;

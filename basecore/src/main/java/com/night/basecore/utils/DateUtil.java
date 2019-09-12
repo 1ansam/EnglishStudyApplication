@@ -8,6 +8,8 @@ import java.util.Date;
 public class DateUtil {
     public static final String yyyy_MM_dd = "yyyy-MM-dd";
 
+    public static final String yyyy_MM_dd_number = "yyyyMMdd";
+
     public static final String yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
 
     public static final String CN_Y_M_d = "yyyy年M月d日";
@@ -117,7 +119,7 @@ public class DateUtil {
     }
 
     //format   current date  to  str
-    public static String formatCurrentDate2Str(String format){
+    public static String getCurrentDate2Str(String format){
         Date date=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat(format);
         return sdf.format(date);

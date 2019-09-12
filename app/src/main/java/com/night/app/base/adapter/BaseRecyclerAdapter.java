@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -17,37 +18,17 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     private BaseRecyclerAdapter.OnItemTouchListener<T> onItemTouchListener;
 
-    // 上下文环境
     public Context                                     context;
 
     // 数据集合
     private List<T>                                    data;
-
-    /**
-     * 刷新数据
-     *
-     * @param data
-     */
-    public void refresh(List<T> data) {
-        this.data = data;
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 添加数据
-     *
-     * @param data
-     */
-    public void append(List<T> data) {
-        this.data.addAll(data);
-        notifyDataSetChanged();
-    }
 
     public BaseRecyclerAdapter(Context context, List<T> data) {
         this.context = context;
         this.data = data;
     }
 
+    @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(getItemLayoutId(), parent, false);
@@ -60,12 +41,27 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         holder.setT(t);
         holder.setPosition(position);
         bindData(holder, t);
-
     }
 
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
+    }
+
+    /**
+     * 刷新数据
+     */
+    public void refresh(List<T> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 添加数据
+     */
+    public void append(List<T> data) {
+        this.data.addAll(data);
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
@@ -77,17 +73,24 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     }
 
     /**
+     * 回调接口
+     */
+    public interface OnItemClickListener<T> {
+
+        void onItemClick(View view, T t, int position);
+    }
+
+    public interface OnItemTouchListener<T> {
+        void onItemTouch(View view, T t, int position, MotionEvent motionEvent);
+    }
+
+    /**
      * 将数据绑定到itemView视图上
-     *
-     * @param holder
-     * @param t
      */
     public abstract void bindData(BaseViewHolder holder, T t);
 
     /**
      * 子类通过重写此方法设置itemView项的布局视图
-     *
-     * @return
      */
     public abstract int getItemLayoutId();
 
@@ -105,8 +108,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         // 位置
         private int               position;
 
+        private View              itemView;
+
         public BaseViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             views = new SparseArray<>();
         }
 
@@ -122,11 +128,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
             return position;
         }
 
+        public View getItemView() {
+            return itemView;
+        }
+
+        public void setItemView(View itemView) {
+            this.itemView = itemView;
+        }
+
         /**
          * 获取 itemView 中的控件
-         *
-         * @param id
-         * @return
          */
         public View getView(int id) {
             View view = views.get(id);
@@ -149,30 +160,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         @Override
         public boolean onTouch(View v, MotionEvent motionEvent) {
             if (onItemTouchListener != null) {
-                onItemTouchListener.onItemTouch(v, t, position,motionEvent);
+                onItemTouchListener.onItemTouch(v, t, position, motionEvent);
             }
             if (motionEvent.getAction() == MotionEvent.ACTION_HOVER_MOVE) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         }
     }
-
-    /**
-     * 回调接口
-     * @param <T>
-     */
-    public interface OnItemClickListener<T> {
-
-        void onItemClick(View view, T t, int position);
-    }
-
-    public interface OnItemTouchListener<T> {
-        void onItemTouch(View view, T t, int position,MotionEvent motionEvent);
-    }
-
-
-
 
 }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.night.app.R;
 import com.night.app.business.home.HomeActivity;
-import com.night.business.database.DatabaseUtil;
+import com.night.api.database.DatabaseUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,11 +15,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         DatabaseUtil.packDataBase(this);
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
-
-
 
     }
 }
