@@ -4,8 +4,9 @@ import android.content.Context;
 
 import com.night.api.base.BaseSQLiteActionImpl;
 import com.night.model.entity.WordEntity;
-import com.night.model.wrapper.WordTranslationWrapper;
-import com.night.model.wrapper.WordWrapper;
+import com.night.model.wrapper.database.CurrentWrapper;
+import com.night.model.wrapper.database.WordTranslationWrapper;
+import com.night.model.wrapper.database.WordWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +64,6 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
                 wordParts += "#";
                 wordMeans += "#";
             }
-//            LogUtil.d(wordName);
-//            LogUtil.d(wordPhEn);
-//            LogUtil.d(wordPhAm);
-//            LogUtil.d(wordPhAmMp3);
-//            LogUtil.d(wordParts);
-//            LogUtil.d(wordMeans);
             database.execSQL(INSERT_INTO_WORD,
                     new Object[] { wordName, wordPhEn, wordPhEnMp3, wordPhAm, wordPhAmMp3, wordParts, wordMeans });
         }
@@ -108,33 +103,45 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
     }
 
     @Override
-    public List<WordWrapper> getWord(List<String> wordNameList) {
-        database=openHelper.getReadableDatabase();
-        database.beginTransaction();
-
-        for(int i=0;i<wordNameList.size();i++){
-            cursor=database.rawQuery(QUERY_WORD_BY_WORD_NAME,new String[]{wordNameList.get(i)});
-        }
+    public List<WordWrapper> getWordByName(List<String> wordNameList) {
         List<WordWrapper> wordWrapperList = new ArrayList<>();
-        while(cursor.moveToNext()){
-            String wordName=cursor.getString(getFieldIndex(FIELD_WORD_NAME));
-            String wordPhEn=cursor.getString(getFieldIndex(FIELD_WORD_PH_EN));
-            String wordPhEnMp3=cursor.getString(getFieldIndex(FIELD_WORD_PH_EN_MP3));
-            String wordPhAm=cursor.getString(getFieldIndex(FIELD_WORD_PH_AM));
-            String wordPhAmMp3=cursor.getString(getFieldIndex(FIELD_WORD_PH_AM_MP3));
-            String[] wordPartArr=cursor.getString(getFieldIndex(FIELD_WORD_PARTS)).split("#");
-            String[] wordMeanArr=cursor.getString(getFieldIndex(FIELD_WORD_MEANS)).split("#");
+        database=openHelper.getReadableDatabase();
+        for(int i=0;i<wordNameList.size();i++){
+            database.beginTransaction();
+            cursor=database.rawQuery(QUERY_WORD_BY_WORD_NAME,new String[]{wordNameList.get(i)});
+            if(cursor.moveToNext()){
+                String wordName=cursor.getString(getFieldIndex(FIELD_WORD_NAME));
+                String wordPhEn=cursor.getString(getFieldIndex(FIELD_WORD_PH_EN));
+                String wordPhEnMp3=cursor.getString(getFieldIndex(FIELD_WORD_PH_EN_MP3));
+                String wordPhAm=cursor.getString(getFieldIndex(FIELD_WORD_PH_AM));
+                String wordPhAmMp3=cursor.getString(getFieldIndex(FIELD_WORD_PH_AM_MP3));
+                String[] wordPartArr=cursor.getString(getFieldIndex(FIELD_WORD_PARTS)).split("#");
+                String[] wordMeanArr=cursor.getString(getFieldIndex(FIELD_WORD_MEANS)).split("#");
 
-            //将原始数据转换为wrapper
-            List<WordTranslationWrapper> wordTranslationWrapperList = new ArrayList<>();
-            for(int i=0;i<wordPartArr.length;i++){
-                WordTranslationWrapper wordTranslationWrapper = new WordTranslationWrapper(wordPartArr[i],wordMeanArr[i]);
-                wordTranslationWrapperList.add(wordTranslationWrapper);
+                //将原始数据转换为wrapper
+                List<WordTranslationWrapper> wordTranslationWrapperList = new ArrayList<>();
+                for(int t=0;t<wordPartArr.length;t++){
+                    WordTranslationWrapper wordTranslationWrapper = new WordTranslationWrapper(wordPartArr[t],wordMeanArr[t]);
+                    wordTranslationWrapperList.add(wordTranslationWrapper);
+                }
+                wordWrapperList.add(new WordWrapper(wordName,wordPhEn,wordPhEnMp3,wordPhAm,wordPhAmMp3,wordTranslationWrapperList));
             }
-            wordWrapperList.add(new WordWrapper(wordName,wordPhEn,wordPhEnMp3,wordPhAm,wordPhAmMp3,wordTranslationWrapperList));
+            database.setTransactionSuccessful();
+            database.endTransaction();
         }
-        close();
+        database.close();
+        cursor.close();
+        openHelper.close();
         return wordWrapperList;
+    }
+
+    @Override
+    public List<WordWrapper> getWordByCurrent(List<CurrentWrapper> currentWrapperList) {
+        List<String> wordNameList =new ArrayList<>();
+        for(int i=0;i<currentWrapperList.size();i++){
+            wordNameList.add(currentWrapperList.get(i).getWordName());
+        }
+        return getWordByName(wordNameList);
     }
 
 }

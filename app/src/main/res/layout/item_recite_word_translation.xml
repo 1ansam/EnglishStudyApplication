@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
 
     <TextView
         android:id="@+id/recite_tv_word_part"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:textColor="@color/text_gray"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="@dimen/text_size_18"
         android:textStyle="italic"/>
 
     <TextView
-        android:id="@+id/recite_tv_word_means"
+        android:id="@+id/recite_tv_word_mean"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="@dimen/text_size_16"

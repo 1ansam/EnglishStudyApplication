@@ -17,7 +17,7 @@ import com.night.app.business.study.select.book.adapter.SelectBookRecycleViewAda
 import com.night.app.common.title.TitleInitUtil;
 import com.night.app.consts.BusinessConsts;
 import com.night.basecore.widget.recyclerview.DividerGridItemDecoration;
-import com.night.model.wrapper.BookWrapper;
+import com.night.model.wrapper.database.BookWrapper;
 
 import java.util.List;
 

@@ -18,6 +18,7 @@
     <color name="layout_background_dark_cyan">#A2B5CD</color>
     <color name="layout_background_dark_cyan_50">#50A2B5CD</color>
     <color name="layout_background_light_orange">#50FFDEAD</color>
+    <color name="layout_background_orange">#FFDEAD</color>
     <color name="layout_background_light_pink">#30ffc1c1</color>
     <color name="layout_background_gray">#EBEBEB</color>
     <!--按钮颜色-->

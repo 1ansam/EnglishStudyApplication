@@ -1,5 +1,10 @@
-package com.night.model.wrapper;
+package com.night.model.wrapper.database;
 
+
+/**
+ * BookWordWrapper类使用
+ * 对应book_library_name表
+ */
 public class WordStateWrapper {
     private String wordName;
 

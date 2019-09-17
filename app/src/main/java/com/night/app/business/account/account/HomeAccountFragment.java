@@ -21,7 +21,7 @@ import com.night.app.business.account.personalization.PersonalPlanActivity;
 import com.night.app.business.account.security.SafetyCenterActivity;
 import com.night.app.consts.BusinessConsts;
 import com.night.basecore.widget.recyclerview.DividerGridItemDecoration;
-import com.night.model.wrapper.CommonFunctionWrapper;
+import com.night.model.wrapper.baseui.CommonFunctionWrapper;
 
 
 public class HomeAccountFragment extends BaseFragment {

@@ -1,4 +1,4 @@
-package com.night.app.business.first.adapter;
+package com.night.app.business.first.first.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

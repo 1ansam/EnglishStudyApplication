@@ -3,7 +3,7 @@ package com.night.api.business.database;
 import android.content.Context;
 
 import com.night.api.base.BaseSQLiteActionImpl;
-import com.night.model.wrapper.BookWrapper;
+import com.night.model.wrapper.database.BookWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

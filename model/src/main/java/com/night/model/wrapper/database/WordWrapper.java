@@ -1,7 +1,11 @@
-package com.night.model.wrapper;
+package com.night.model.wrapper.database;
 
 import java.util.List;
 
+
+/**
+ * 对应word本地数据库表
+ */
 public class WordWrapper {
     private String wordName;
 
@@ -14,6 +18,9 @@ public class WordWrapper {
     private String wordPhAmMp3;
 
     private List<WordTranslationWrapper> wordTranslationWrapperList;
+
+    public WordWrapper() {
+    }
 
     public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3, List<WordTranslationWrapper> wordTranslationWrapperList) {
         this.wordName = wordName;

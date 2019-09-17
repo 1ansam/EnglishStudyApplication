@@ -1,6 +1,6 @@
 package com.night.api.business.database;
 
-import com.night.model.wrapper.BookWordWrapper;
+import com.night.model.wrapper.database.BookWordWrapper;
 
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,9 @@
-package com.night.model.wrapper;
+package com.night.model.wrapper.baseui;
 
+
+/**
+ * UI界面基本类
+ */
 public class CommonFunctionWrapper {
     /**功能图标字母id*/
     private int titleIconId;

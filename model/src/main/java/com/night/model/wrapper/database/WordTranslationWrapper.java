@@ -1,5 +1,9 @@
-package com.night.model.wrapper;
+package com.night.model.wrapper.database;
 
+/**
+ * 在WordWrapper类中使用
+ * 对应word本地数据库表
+ */
 public class WordTranslationWrapper {
     private String wordPart;
 

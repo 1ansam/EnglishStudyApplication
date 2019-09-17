@@ -3,8 +3,8 @@ package com.night.api.business.database;
 import android.content.Context;
 
 import com.night.api.base.BaseSQLiteActionImpl;
-import com.night.model.wrapper.BookWordWrapper;
-import com.night.model.wrapper.WordStateWrapper;
+import com.night.model.wrapper.database.BookWordWrapper;
+import com.night.model.wrapper.database.WordStateWrapper;
 
 import java.util.HashMap;
 import java.util.List;

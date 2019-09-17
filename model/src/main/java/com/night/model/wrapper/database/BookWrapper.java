@@ -1,5 +1,8 @@
-package com.night.model.wrapper;
+package com.night.model.wrapper.database;
 
+/**
+ * 对应book本地数据库表
+ */
 public class BookWrapper {
     private String bookLibraryName;
 

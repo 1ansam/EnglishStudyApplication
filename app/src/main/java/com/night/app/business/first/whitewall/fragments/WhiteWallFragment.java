@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.night.app.R;
-import com.night.app.business.first.whitewall.wrapper.WhiteWallWrapper;
+import com.night.model.wrapper.first.whitewall.WhiteWallWrapper;
 import com.night.app.consts.enums.UserLevelEnums;
 import com.night.app.base.fragment.BaseFragment;
 

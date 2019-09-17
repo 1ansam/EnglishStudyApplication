@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.night.app.R;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
-import com.night.model.wrapper.BookWrapper;
+import com.night.model.wrapper.database.BookWrapper;
 
 import java.util.List;
 

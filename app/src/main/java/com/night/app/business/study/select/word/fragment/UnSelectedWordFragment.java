@@ -18,7 +18,7 @@ import com.night.app.base.fragment.BaseFragment;
 import com.night.app.business.study.select.word.SelectWordActivity;
 import com.night.app.business.study.select.word.adapter.SelectWordRecyclerViewAdapter;
 import com.night.basecore.widget.recyclerview.CustomLinearLayoutManager;
-import com.night.model.wrapper.WordStateWrapper;
+import com.night.model.wrapper.database.WordStateWrapper;
 
 import java.util.HashSet;
 import java.util.List;

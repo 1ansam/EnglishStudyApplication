@@ -1,4 +1,4 @@
-package com.night.app.business.first;
+package com.night.app.business.first.first;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.night.app.R;
-import com.night.app.business.first.adapter.FunctionRecycleViewAdapter;
+import com.night.app.business.first.first.adapter.FunctionRecycleViewAdapter;
 import com.night.app.business.first.whitewall.adapter.WhiteWallVerticalPagerAdapter;
-import com.night.app.business.first.whitewall.wrapper.WhiteWallWrapper;
+import com.night.model.wrapper.first.whitewall.WhiteWallWrapper;
 import com.night.basecore.widget.circleslidingindicator.CircleSlidingIndicator;
 import com.night.basecore.widget.customimageview.widget.CustomShapeImageView;
 import com.night.basecore.widget.verticalviewpager.VerticalViewPager;

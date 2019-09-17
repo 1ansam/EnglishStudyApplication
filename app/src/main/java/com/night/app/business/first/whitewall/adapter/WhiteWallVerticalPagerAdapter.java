@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.night.app.business.first.whitewall.fragments.WhiteWallFragment;
-import com.night.app.business.first.whitewall.wrapper.WhiteWallWrapper;
+import com.night.model.wrapper.first.whitewall.WhiteWallWrapper;
 
 import java.util.List;
 

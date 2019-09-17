@@ -1,7 +1,8 @@
 package com.night.api.business.database;
 
 import com.night.model.entity.WordEntity;
-import com.night.model.wrapper.WordWrapper;
+import com.night.model.wrapper.database.CurrentWrapper;
+import com.night.model.wrapper.database.WordWrapper;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface WordAction {
 
     List<Boolean> isContainedInTable(List<String> wordNameList);
 
-    List<WordWrapper> getWord(List<String> wordNameList);
+    List<WordWrapper> getWordByName(List<String> wordNameList);
+
+    List<WordWrapper> getWordByCurrent(List<CurrentWrapper> currentWrapperList);
 
 }

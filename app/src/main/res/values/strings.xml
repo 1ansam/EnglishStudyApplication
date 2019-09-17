@@ -121,4 +121,8 @@
     <string name="select_word_selected_word_number">已选 0</string>
     <string name="select_word_recommend_word_number">建议选</string>
 
+    <!-- 背记单词页-->
+    <string name="sure">确定</string>
+    <string name="not_sure">不确定</string>
+
 </resources>

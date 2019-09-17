@@ -1,8 +1,11 @@
-package com.night.model.wrapper;
+package com.night.model.wrapper.database;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 对应book_library_name本地数据库表
+ */
 public class BookWordWrapper {
     private List<WordStateWrapper> unSelectedWordList = new ArrayList<>();
 

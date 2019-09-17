@@ -29,8 +29,8 @@ import com.night.api.business.database.BookWordAction;
 import com.night.api.business.database.BookWordActionImpl;
 import com.night.api.business.database.CurrentAction;
 import com.night.api.business.database.CurrentActionImpl;
-import com.night.model.wrapper.BookWordWrapper;
-import com.night.model.wrapper.WordStateWrapper;
+import com.night.model.wrapper.database.BookWordWrapper;
+import com.night.model.wrapper.database.WordStateWrapper;
 
 import java.util.ArrayList;
 import java.util.List;

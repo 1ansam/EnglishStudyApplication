@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.night.app.business.study.recite.fragment.ReciteFragment;
-import com.night.model.wrapper.ReciteWordWrapper;
+import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         mFragment = new ReciteFragment();
+        mFragment.setReciteWordWrapper(mWrapperList.get(position));
         return mFragment;
     }
 
@@ -31,4 +32,9 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
             return mWrapperList.size();
         return 0;
     }
+
+
+
+
+
 }

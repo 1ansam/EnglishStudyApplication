@@ -16,6 +16,19 @@
         android:layout_below="@+id/recite_layout_title"
         android:clipChildren="false"
         android:layout_centerHorizontal="true"
-        android:layout_margin="50dp" />
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="100dp"/>
+
+    <LinearLayout
+        android:id="@+id/recite_layout_setting"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/text_black"
+        android:layout_below="@id/recite_view_pager"
+        android:orientation="horizontal"/>
+
+
 
 </RelativeLayout>

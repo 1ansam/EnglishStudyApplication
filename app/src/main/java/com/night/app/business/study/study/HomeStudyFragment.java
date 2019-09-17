@@ -20,7 +20,7 @@ import com.night.app.base.adapter.BaseRecyclerAdapter;
 import com.night.basecore.widget.recyclerview.DividerGridItemDecoration;
 import com.night.app.consts.BusinessConsts;
 import com.night.app.base.fragment.BaseFragment;
-import com.night.model.wrapper.CommonFunctionWrapper;
+import com.night.model.wrapper.baseui.CommonFunctionWrapper;
 
 public class HomeStudyFragment extends BaseFragment {
     private RecyclerView                    mRecycleViewFunctionGrid;

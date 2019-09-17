@@ -1,4 +1,4 @@
-package com.night.app.business.first.whitewall.wrapper;
+package com.night.model.wrapper.first.whitewall;
 
 public class WhiteWallWrapper {
     private String userLevel;

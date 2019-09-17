@@ -2,7 +2,7 @@ package com.night.app.business.account.account.adapter;
 
 import com.night.app.R;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
-import com.night.model.wrapper.CommonFunctionWrapper;
+import com.night.model.wrapper.baseui.CommonFunctionWrapper;
 
 import android.content.Context;
 import android.widget.Button;
