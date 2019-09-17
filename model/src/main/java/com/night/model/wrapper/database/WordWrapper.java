@@ -19,8 +19,7 @@ public class WordWrapper {
 
     private List<WordTranslationWrapper> wordTranslationWrapperList;
 
-    public WordWrapper() {
-    }
+    private int wordCollectState;
 
     public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3, List<WordTranslationWrapper> wordTranslationWrapperList) {
         this.wordName = wordName;
@@ -29,6 +28,16 @@ public class WordWrapper {
         this.wordPhAm = wordPhAm;
         this.wordPhAmMp3 = wordPhAmMp3;
         this.wordTranslationWrapperList = wordTranslationWrapperList;
+    }
+
+    public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3, List<WordTranslationWrapper> wordTranslationWrapperList, int wordCollectState) {
+        this.wordName = wordName;
+        this.wordPhEn = wordPhEn;
+        this.wordPhEnMp3 = wordPhEnMp3;
+        this.wordPhAm = wordPhAm;
+        this.wordPhAmMp3 = wordPhAmMp3;
+        this.wordTranslationWrapperList = wordTranslationWrapperList;
+        this.wordCollectState = wordCollectState;
     }
 
     public String getWordName() {
@@ -77,5 +86,13 @@ public class WordWrapper {
 
     public void setWordTranslationWrapperList(List<WordTranslationWrapper> wordTranslationWrapperList) {
         this.wordTranslationWrapperList = wordTranslationWrapperList;
+    }
+
+    public int getWordCollectState() {
+        return wordCollectState;
+    }
+
+    public void setWordCollectState(int wordCollectState) {
+        this.wordCollectState = wordCollectState;
     }
 }

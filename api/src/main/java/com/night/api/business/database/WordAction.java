@@ -17,4 +17,6 @@ public interface WordAction {
 
     List<WordWrapper> getWordByCurrent(List<CurrentWrapper> currentWrapperList);
 
+    void updateWordCollectState(String wordName,int wordCollectState);
+
 }

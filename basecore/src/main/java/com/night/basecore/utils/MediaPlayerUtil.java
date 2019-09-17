@@ -7,17 +7,16 @@ import android.net.Uri;
 import java.io.IOException;
 
 public class MediaPlayerUtil {
-    private static MediaPlayer mediaPlayer = new MediaPlayer();
+    private static MediaPlayer staticMediaPlayer = new MediaPlayer();
 
-    public static void play(Context context,String url){
-        mediaPlayer.reset();
+    public static void play(Context context, String url) {
+        staticMediaPlayer.reset();
         try {
-            mediaPlayer.setDataSource(context, Uri.parse(url));
-            mediaPlayer.prepare();
-            mediaPlayer.start();
+            staticMediaPlayer.setDataSource(context, Uri.parse(url));
+            staticMediaPlayer.prepare();
+            staticMediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

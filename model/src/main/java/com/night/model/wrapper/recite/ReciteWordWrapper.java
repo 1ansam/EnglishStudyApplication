@@ -18,16 +18,10 @@ public class ReciteWordWrapper {
      */
     private int         wordReciteState;
 
-    /**
-     * 单词是否被收藏状态
-     */
-    private int wordCollectState;
-
-    public ReciteWordWrapper(WordWrapper wordWrapper, int translationVisibilityState, int wordReciteState, int wordCollectState) {
+    public ReciteWordWrapper(WordWrapper wordWrapper, int translationVisibilityState, int wordReciteState) {
         this.wordWrapper = wordWrapper;
         this.translationVisibilityState = translationVisibilityState;
         this.wordReciteState = wordReciteState;
-        this.wordCollectState = wordCollectState;
     }
 
     public WordWrapper getWordWrapper() {
@@ -54,11 +48,4 @@ public class ReciteWordWrapper {
         this.wordReciteState = wordReciteState;
     }
 
-    public int getWordCollectState() {
-        return wordCollectState;
-    }
-
-    public void setWordCollectState(int wordCollectState) {
-        this.wordCollectState = wordCollectState;
-    }
 }

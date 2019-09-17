@@ -12,29 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
-    private static final String TABLE_NAME                       = "word";
+    private static final String TABLE_NAME                   = "word";
 
-    private static final String FIELD_WORD_NAME                  = "word_name";
+    private static final String FIELD_WORD_NAME              = "word_name";
 
-    private static final String FIELD_WORD_PH_EN                 = "word_ph_en";
+    private static final String FIELD_WORD_PH_EN             = "word_ph_en";
 
-    private static final String FIELD_WORD_PH_EN_MP3             = "word_ph_en_mp3";
+    private static final String FIELD_WORD_PH_EN_MP3         = "word_ph_en_mp3";
 
-    private static final String FIELD_WORD_PH_AM                 = "word_ph_am";
+    private static final String FIELD_WORD_PH_AM             = "word_ph_am";
 
-    private static final String FIELD_WORD_PH_AM_MP3             = "word_ph_am_mp3";
+    private static final String FIELD_WORD_PH_AM_MP3         = "word_ph_am_mp3";
 
-    private static final String FIELD_WORD_PARTS                 = "word_parts";
+    private static final String FIELD_WORD_PARTS             = "word_parts";
 
-    private static final String FIELD_WORD_MEANS                 = "word_means";
+    private static final String FIELD_WORD_MEANS             = "word_means";
 
-    private static final String INSERT_INTO_WORD                 = "insert into " + TABLE_NAME
-            + " values(?,?,?,?,?,?,?)";
+    private static final String FIELD_WORD_COLLECT_STATE     = "word_collect_state";
+
+    private static final String INSERT_INTO_WORD             = "insert into " + TABLE_NAME + " values(?,?,?,?,?,?,?,?)";
 
     private static final String QUERY_WORD_NAME_BY_WORD_NAME = "select " + FIELD_WORD_NAME + " from " + TABLE_NAME
             + " where " + FIELD_WORD_NAME + "=?";
 
-    private static final String QUERY_WORD_BY_WORD_NAME="select * from "+TABLE_NAME+" where "+FIELD_WORD_NAME+"=?";
+    private static final String QUERY_WORD_BY_WORD_NAME      = "select * from " + TABLE_NAME + " where "
+            + FIELD_WORD_NAME + "=?";
+
+    private static final String UPDATE_WORD_COLLECT_STATE="update "+TABLE_NAME+" set "+FIELD_WORD_COLLECT_STATE+"=? where "+FIELD_WORD_NAME+" =?";
 
     public WordActionImpl(Context context) {
         super(context);
@@ -65,7 +69,7 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
                 wordMeans += "#";
             }
             database.execSQL(INSERT_INTO_WORD,
-                    new Object[] { wordName, wordPhEn, wordPhEnMp3, wordPhAm, wordPhAmMp3, wordParts, wordMeans });
+                    new Object[] { wordName, wordPhEn, wordPhEnMp3, wordPhAm, wordPhAmMp3, wordParts, wordMeans,0 });
         }
         close();
     }
@@ -117,14 +121,14 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
                 String wordPhAmMp3=cursor.getString(getFieldIndex(FIELD_WORD_PH_AM_MP3));
                 String[] wordPartArr=cursor.getString(getFieldIndex(FIELD_WORD_PARTS)).split("#");
                 String[] wordMeanArr=cursor.getString(getFieldIndex(FIELD_WORD_MEANS)).split("#");
-
+                int wordCollectState=cursor.getInt(getFieldIndex(FIELD_WORD_COLLECT_STATE));
                 //将原始数据转换为wrapper
                 List<WordTranslationWrapper> wordTranslationWrapperList = new ArrayList<>();
                 for(int t=0;t<wordPartArr.length;t++){
                     WordTranslationWrapper wordTranslationWrapper = new WordTranslationWrapper(wordPartArr[t],wordMeanArr[t]);
                     wordTranslationWrapperList.add(wordTranslationWrapper);
                 }
-                wordWrapperList.add(new WordWrapper(wordName,wordPhEn,wordPhEnMp3,wordPhAm,wordPhAmMp3,wordTranslationWrapperList));
+                wordWrapperList.add(new WordWrapper(wordName,wordPhEn,wordPhEnMp3,wordPhAm,wordPhAmMp3,wordTranslationWrapperList,wordCollectState));
             }
             database.setTransactionSuccessful();
             database.endTransaction();
@@ -137,11 +141,19 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
 
     @Override
     public List<WordWrapper> getWordByCurrent(List<CurrentWrapper> currentWrapperList) {
-        List<String> wordNameList =new ArrayList<>();
-        for(int i=0;i<currentWrapperList.size();i++){
+        List<String> wordNameList = new ArrayList<>();
+        for (int i = 0; i < currentWrapperList.size(); i++) {
             wordNameList.add(currentWrapperList.get(i).getWordName());
         }
         return getWordByName(wordNameList);
+    }
+
+    @Override
+    public void updateWordCollectState(String wordName,int wordCollectState) {
+        database=openHelper.getWritableDatabase();
+        database.beginTransaction();
+        database.execSQL(UPDATE_WORD_COLLECT_STATE,new Object[]{wordCollectState,wordName});
+        close();
     }
 
 }

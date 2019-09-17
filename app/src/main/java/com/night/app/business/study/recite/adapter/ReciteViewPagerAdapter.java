@@ -14,15 +14,25 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<ReciteWordWrapper> mWrapperList;
 
+    private ViewPagerNextFragmentItem mNextFragmentItem;
+
     public ReciteViewPagerAdapter(FragmentManager fm, List<ReciteWordWrapper> list) {
         super(fm);
         mWrapperList = list;
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(final int position) {
         mFragment = new ReciteFragment();
         mFragment.setReciteWordWrapper(mWrapperList.get(position));
+        mFragment.setNextFragmentItem(new ReciteFragment.FragmentNextFragmentItem() {
+            @Override
+            public void nextItem() {
+                if(mNextFragmentItem!=null){
+                    mNextFragmentItem.nextItem(position);
+                }
+            }
+        });
         return mFragment;
     }
 
@@ -33,8 +43,11 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
         return 0;
     }
 
+    public interface ViewPagerNextFragmentItem {
+        public void nextItem(int position);
+    }
 
-
-
-
+    public void setNextFragmentItem(ViewPagerNextFragmentItem mNextFragmentItem) {
+        this.mNextFragmentItem = mNextFragmentItem;
+    }
 }

@@ -1,5 +1,6 @@
 package com.night.app.business.study.recite.fragment;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.night.api.business.database.WordAction;
+import com.night.api.business.database.WordActionImpl;
 import com.night.app.R;
 import com.night.app.base.fragment.BaseFragment;
 import com.night.app.business.study.recite.adapter.ReciteWordTranslationRecyclerViewAdapter;
@@ -40,7 +43,7 @@ public class ReciteFragment extends BaseFragment {
 
     private RecyclerView                             mRecyclerViewWordTranslation;
 
-    private LinearLayout mLayoutWordTranslationView;
+    private LinearLayout                             mLayoutWordTranslationView;
 
     private ImageView                                mIvEye;
 
@@ -51,6 +54,10 @@ public class ReciteFragment extends BaseFragment {
     private ReciteWordTranslationRecyclerViewAdapter mRecyclerViewTranslationAdapter;
 
     private ReciteWordWrapper                        mReciteWordWrapper;
+
+    private WordAction                               mWordAction;
+
+    private FragmentNextFragmentItem                 mNextFragmentItem;
 
     @Nullable
     @Override
@@ -81,6 +88,7 @@ public class ReciteFragment extends BaseFragment {
         mIvEye = view.findViewById(R.id.recite_iv_eye);
         mBtnNotSure = view.findViewById(R.id.recite_btn_not_sure);
         mBtnSure = view.findViewById(R.id.recite_btn_sure);
+        mWordAction = new WordActionImpl(getContext());
 
         mTvWordName.setText(mReciteWordWrapper.getWordWrapper().getWordName());
         mTvWordPhEn.setText("英/" + mReciteWordWrapper.getWordWrapper().getWordPhEn() + "/");
@@ -93,19 +101,21 @@ public class ReciteFragment extends BaseFragment {
         setTranslationView();
     }
 
-
-
     @Override
     public void initClick() {
         mIvCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mReciteWordWrapper.getWordCollectState()==WordEnums.COLLECTED_STATE){
-                    mIvCollect.setImageResource(R.mipmap.icon_star);
-                    mReciteWordWrapper.setWordCollectState(WordEnums.COLLECTED_STATE);
-                }else{
-                    mIvCollect.setImageResource(R.mipmap.icon_star_fill);
-                    mReciteWordWrapper.setWordCollectState(WordEnums.NOT_COLLECTED_STATE);
+                if (mReciteWordWrapper.getWordWrapper().getWordCollectState() == WordEnums.COLLECTED) {
+                    mIvCollect.setImageResource(R.mipmap.icon_star_not_collected);
+                    mReciteWordWrapper.getWordWrapper().setWordCollectState(WordEnums.NOT_COLLECTED);
+                    mWordAction.updateWordCollectState(mReciteWordWrapper.getWordWrapper().getWordName(),
+                            WordEnums.NOT_COLLECTED);
+                } else {
+                    mIvCollect.setImageResource(R.mipmap.icon_star_collected);
+                    mReciteWordWrapper.getWordWrapper().setWordCollectState(WordEnums.COLLECTED);
+                    mWordAction.updateWordCollectState(mReciteWordWrapper.getWordWrapper().getWordName(),
+                            WordEnums.COLLECTED);
                 }
             }
         });
@@ -113,9 +123,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 final String mp3Url = (String) mIvWordPhEnMp3.getTag();
-                if (!StringUtil.isEmpty(mp3Url)) {
-                    MediaPlayerUtil.play(getContext(), mp3Url);
-                }
+                playHornAnimation(mIvWordPhEnMp3,mp3Url);
             }
         });
 
@@ -123,9 +131,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 final String mp3Url = (String) mIvWordPhAmMp3.getTag();
-                if (!StringUtil.isEmpty(mp3Url)) {
-                    MediaPlayerUtil.play(getContext(), mp3Url);
-                }
+                playHornAnimation(mIvWordPhAmMp3,mp3Url);
             }
         });
 
@@ -140,8 +146,11 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 mIvSureState.setVisibility(View.VISIBLE);
-                mIvSureState.setBackgroundResource(R.mipmap.icon_flower_bad);
-                mReciteWordWrapper.setWordReciteState(WordEnums.NOT_SURE_STATE);
+                mIvSureState.setImageResource(R.mipmap.icon_flower_bad);
+                mReciteWordWrapper.setWordReciteState(WordEnums.NOT_SURE);
+                if (mNextFragmentItem != null) {
+                    mNextFragmentItem.nextItem();
+                }
             }
         });
 
@@ -149,8 +158,11 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 mIvSureState.setVisibility(View.VISIBLE);
-                mIvSureState.setBackgroundResource(R.mipmap.icon_flower_red);
-                mReciteWordWrapper.setWordReciteState(WordEnums.SURE_STATE);
+                mIvSureState.setImageResource(R.mipmap.icon_flower_red);
+                mReciteWordWrapper.setWordReciteState(WordEnums.SURE);
+                if (mNextFragmentItem != null) {
+                    mNextFragmentItem.nextItem();
+                }
             }
         });
     }
@@ -163,10 +175,10 @@ public class ReciteFragment extends BaseFragment {
      * s设置单词是否被收藏标记
      */
     private void setWordCollectState() {
-        if(mReciteWordWrapper.getWordCollectState()==WordEnums.COLLECTED_STATE){
-            mIvCollect.setImageResource(R.mipmap.icon_star_fill);
-        }else{
-            mIvCollect.setImageResource(R.mipmap.icon_star);
+        if (mReciteWordWrapper.getWordWrapper().getWordCollectState() == WordEnums.COLLECTED) {
+            mIvCollect.setImageResource(R.mipmap.icon_star_collected);
+        } else {
+            mIvCollect.setImageResource(R.mipmap.icon_star_not_collected);
         }
     }
 
@@ -175,17 +187,17 @@ public class ReciteFragment extends BaseFragment {
      */
     private void setWordStateView() {
         switch (mReciteWordWrapper.getWordReciteState()) {
-            case WordEnums.NULL_STATE:
-                mIvSureState.setVisibility(View.GONE);
-                break;
-            case WordEnums.NOT_SURE_STATE:
-                mIvSureState.setVisibility(View.VISIBLE);
-                mIvSureState.setImageResource(R.mipmap.icon_flower_bad);
-                break;
-            case WordEnums.SURE_STATE:
-                mIvSureState.setVisibility(View.VISIBLE);
-                mIvSureState.setImageResource(R.mipmap.icon_flower_red);
-                break;
+        case WordEnums.NULL_SURE:
+            mIvSureState.setVisibility(View.GONE);
+            break;
+        case WordEnums.NOT_SURE:
+            mIvSureState.setVisibility(View.VISIBLE);
+            mIvSureState.setImageResource(R.mipmap.icon_flower_bad);
+            break;
+        case WordEnums.SURE:
+            mIvSureState.setVisibility(View.VISIBLE);
+            mIvSureState.setImageResource(R.mipmap.icon_flower_red);
+            break;
         }
     }
 
@@ -213,17 +225,36 @@ public class ReciteFragment extends BaseFragment {
         }
     }
 
-    private void setTranslationVisible(){
+    private void setTranslationVisible() {
         mIvEye.setImageResource(R.mipmap.icon_eye_open);
         mRecyclerViewWordTranslation.setVisibility(View.VISIBLE);
         mBtnNotSure.setVisibility(View.VISIBLE);
         mBtnSure.setVisibility(View.VISIBLE);
     }
 
-    private void setTranslationGone(){
+    private void setTranslationGone() {
         mIvEye.setImageResource(R.mipmap.icon_eye_close);
         mRecyclerViewWordTranslation.setVisibility(View.GONE);
         mBtnNotSure.setVisibility(View.GONE);
         mBtnSure.setVisibility(View.GONE);
     }
+
+    public void setNextFragmentItem(FragmentNextFragmentItem mNextFragmentItem) {
+        this.mNextFragmentItem = mNextFragmentItem;
+    }
+
+    public interface FragmentNextFragmentItem {
+        void nextItem();
+    }
+
+    private void playHornAnimation(ImageView imageView,String mp3Url){
+        imageView.setImageResource(R.drawable.horn_play_animation);
+        AnimationDrawable animation = (AnimationDrawable) imageView.getDrawable();
+        animation.setOneShot(true);
+        animation.start();
+        if (!StringUtil.isEmpty(mp3Url)) {
+            MediaPlayerUtil.play(getContext(), mp3Url);
+        }
+    }
+
 }

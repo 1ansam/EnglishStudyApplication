@@ -60,6 +60,14 @@ public class ReciteActivity extends BaseActivity {
         setReciteWordWrapperListData();
 
         mViewPagerAdapter = new ReciteViewPagerAdapter(getSupportFragmentManager(), mReciteWordWrapperList);
+        mViewPagerAdapter.setNextFragmentItem(new ReciteViewPagerAdapter.ViewPagerNextFragmentItem() {
+            @Override
+            public void nextItem(int position) {
+                if(position!=mReciteWordWrapperList.size()){
+                    mViewPager.setCurrentItem(position+1,true);
+                }
+            }
+        });
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.setPageMargin(10);
@@ -74,8 +82,7 @@ public class ReciteActivity extends BaseActivity {
     private void setReciteWordWrapperListData() {
         mReciteWordWrapperList = new ArrayList<>();
         for (int i = 0; i < mWordWrapperList.size(); i++) {
-            ReciteWordWrapper wrapper = new ReciteWordWrapper(mWordWrapperList.get(i), View.GONE, WordEnums.NULL_STATE,
-                    WordEnums.NOT_COLLECTED_STATE);
+            ReciteWordWrapper wrapper = new ReciteWordWrapper(mWordWrapperList.get(i), View.GONE, WordEnums.NULL_SURE);
             mReciteWordWrapperList.add(wrapper);
         }
     }
