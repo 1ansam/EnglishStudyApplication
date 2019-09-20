@@ -2,7 +2,9 @@ package com.night.model.wrapper.recite;
 
 import com.night.model.wrapper.database.WordWrapper;
 
-public class ReciteWordWrapper {
+import java.io.Serializable;
+
+public class ReciteWordWrapper implements Serializable {
     /**
      * 原始单词数据
      */
@@ -14,7 +16,7 @@ public class ReciteWordWrapper {
     private int         translationVisibilityState;
 
     /**
-     * 确定/不确定点击后标志状态
+     * 确定/不确定点击后标志状态  WordEnums
      */
     private int         wordReciteState;
 

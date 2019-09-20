@@ -1,9 +1,11 @@
 package com.night.model.wrapper.database;
 
+import java.io.Serializable;
+
 /**
  * 对应book本地数据库表
  */
-public class BookWrapper {
+public class BookWrapper implements Serializable {
     private String bookLibraryName;
 
     private String bookChineseName;

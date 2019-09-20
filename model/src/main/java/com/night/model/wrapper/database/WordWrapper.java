@@ -1,12 +1,13 @@
 package com.night.model.wrapper.database;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 对应word本地数据库表
  * @author zwt
  */
-public class WordWrapper {
+public class WordWrapper implements Serializable {
 
     private String                       wordName;
 

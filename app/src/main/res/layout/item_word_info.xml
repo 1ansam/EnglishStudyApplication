@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/layout_margin_horizontal"
+    android:layout_marginEnd="@dimen/layout_margin_horizontal"
+    android:paddingTop="@dimen/layout_margin_vertical">
+
+    <TextView
+        android:id="@+id/next_recite_tv_word_name"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:gravity="center_vertical"
+        android:text="student"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_20"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/next_recite_tv_word_ph"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@id/next_recite_tv_word_name"
+        android:gravity="center_vertical"
+        android:text="英/student/"
+        android:textColor="@color/text_hint"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/next_recite_tv_word_translation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/next_recite_tv_word_name"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="@dimen/layout_margin_vertical"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/text_hint"
+        android:textSize="@dimen/text_size_14" />
+
+    <ImageView
+        android:id="@+id/next_recite_iv_horn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:clickable="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/horn_play_animation" />
+</RelativeLayout>

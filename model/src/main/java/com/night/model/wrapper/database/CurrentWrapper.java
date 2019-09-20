@@ -1,6 +1,8 @@
 package com.night.model.wrapper.database;
 
-public class CurrentWrapper {
+import java.io.Serializable;
+
+public class CurrentWrapper implements Serializable {
     private String wordName;
 
     private int firstDate;

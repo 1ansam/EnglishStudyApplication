@@ -99,16 +99,20 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             childCount = childCount - childCount % spanCount;
-            if (pos >= childCount)// 如果是最后一行，则不需要绘制底部
+            // 如果是最后一行，则不需要绘制底部
+            if (pos >= childCount) {
                 return true;
+            }
+
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
             // StaggeredGridLayoutManager 且纵向滚动
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
                 childCount = childCount - childCount % spanCount;
                 // 如果是最后一行，则不需要绘制底部
-                if (pos >= childCount)
+                if (pos >= childCount) {
                     return true;
+                }
             } else
             // StaggeredGridLayoutManager 且横向滚动
             {

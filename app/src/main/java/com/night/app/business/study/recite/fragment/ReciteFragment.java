@@ -1,6 +1,5 @@
 package com.night.app.business.study.recite.fragment;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.night.app.base.fragment.BaseFragment;
 import com.night.app.business.study.recite.adapter.ReciteWordTranslationRecyclerViewAdapter;
 import com.night.app.consts.enums.WordEnums;
 import com.night.basecore.utils.MediaPlayerUtil;
-import com.night.basecore.utils.StringUtil;
 import com.night.basecore.utils.StyleUtil;
 import com.night.basecore.widget.recyclerview.CustomLinearLayoutManager;
 import com.night.model.wrapper.recite.ReciteWordWrapper;
@@ -111,7 +109,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (mReciteWordWrapper.getWordWrapper().getWordCollectState() == WordEnums.COLLECTED) {
-                    mIvCollect.setImageResource(R.mipmap.icon_star_gray);
+                    mIvCollect.setImageResource(R.mipmap.icon_star_light_gray);
                     mReciteWordWrapper.getWordWrapper().setWordCollectState(WordEnums.NOT_COLLECTED);
                     mWordAction.updateWordCollectState(mReciteWordWrapper.getWordWrapper().getWordName(),
                             WordEnums.NOT_COLLECTED);
@@ -127,7 +125,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 final String mp3Url = (String) mIvWordPhEnMp3.getTag();
-                playHornAnimation(mIvWordPhEnMp3, mp3Url);
+                MediaPlayerUtil.playHornAnimation(getContext(),mIvWordPhEnMp3, mp3Url);
             }
         });
 
@@ -135,7 +133,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 final String mp3Url = (String) mIvWordPhAmMp3.getTag();
-                playHornAnimation(mIvWordPhAmMp3, mp3Url);
+                MediaPlayerUtil.playHornAnimation(getContext(),mIvWordPhAmMp3, mp3Url);
             }
         });
 
@@ -254,16 +252,6 @@ public class ReciteFragment extends BaseFragment {
          * 展示下一个Fragment
          */
         void nextItem();
-    }
-
-    private void playHornAnimation(ImageView imageView, String mp3Url) {
-        imageView.setImageResource(R.drawable.horn_play_animation);
-        AnimationDrawable animation = (AnimationDrawable) imageView.getDrawable();
-        animation.setOneShot(true);
-        animation.start();
-        if (!StringUtil.isEmpty(mp3Url)) {
-            MediaPlayerUtil.play(getContext(), mp3Url);
-        }
     }
 
 }

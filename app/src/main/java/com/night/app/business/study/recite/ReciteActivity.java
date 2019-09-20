@@ -1,5 +1,6 @@
 package com.night.app.business.study.recite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,7 +14,7 @@ import com.night.app.R;
 import com.night.app.base.activity.BaseActivity;
 import com.night.app.business.study.recite.adapter.ReciteViewPagerAdapter;
 import com.night.app.common.title.TitleInitUtil;
-import com.night.app.consts.ShareConsts;
+import com.night.app.consts.SharePreferenceConsts;
 import com.night.app.consts.enums.WordEnums;
 import com.night.basecore.utils.SharedPrefsUtil;
 import com.night.basecore.widget.viewpager.ZoomOutPagerTransformer;
@@ -21,6 +22,7 @@ import com.night.model.wrapper.database.CurrentWrapper;
 import com.night.model.wrapper.database.WordWrapper;
 import com.night.model.wrapper.recite.ReciteWordWrapper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +35,9 @@ public class ReciteActivity extends BaseActivity {
 
     private WordAction              mWordAction;
 
-    private List<CurrentWrapper>    mCurrentWrapperList;
-
-    private List<WordWrapper>       mWordWrapperList;
+    // private List<CurrentWrapper> mCurrentWrapperList;
+    //
+    // private List<WordWrapper> mWordWrapperList;
 
     private List<ReciteWordWrapper> mReciteWordWrapperList;
 
@@ -54,17 +56,23 @@ public class ReciteActivity extends BaseActivity {
 
         mCurrentAction = new CurrentActionImpl(this);
         mWordAction = new WordActionImpl(this);
-        mCurrentWrapperList = mCurrentAction
-                .getCurrentRecite(SharedPrefsUtil.getInt(this, ShareConsts.DAY_TARGET_NUMBER, 50));
-        mWordWrapperList = mWordAction.getWordByCurrent(mCurrentWrapperList);
-        setReciteWordWrapperListData();
+        List<CurrentWrapper> currentWrapperList = mCurrentAction
+                .getCurrentRecite(SharedPrefsUtil.getInt(this, SharePreferenceConsts.DAY_TARGET_NUMBER, 50));
+        List<WordWrapper> wordWrapperList = mWordAction.getWordByCurrent(currentWrapperList);
+        setReciteWordWrapperListData(wordWrapperList);
 
         mViewPagerAdapter = new ReciteViewPagerAdapter(getSupportFragmentManager(), mReciteWordWrapperList);
         mViewPagerAdapter.setNextFragmentItem(new ReciteViewPagerAdapter.ViewPagerNextFragmentItem() {
             @Override
             public void nextItem(int position) {
-                if(position!=mReciteWordWrapperList.size()){
-                    mViewPager.setCurrentItem(position+1,true);
+                if (position != mReciteWordWrapperList.size()-1) {
+                    mViewPager.setCurrentItem(position + 1, true);
+                }else{
+                    Intent intent = new Intent(ReciteActivity.this,NextReciteActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("reciteWordWrapperList",(Serializable)mReciteWordWrapperList);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             }
         });
@@ -79,10 +87,10 @@ public class ReciteActivity extends BaseActivity {
 
     }
 
-    private void setReciteWordWrapperListData() {
+    private void setReciteWordWrapperListData(List<WordWrapper> wordWrapperList) {
         mReciteWordWrapperList = new ArrayList<>();
-        for (int i = 0; i < mWordWrapperList.size(); i++) {
-            ReciteWordWrapper wrapper = new ReciteWordWrapper(mWordWrapperList.get(i), View.GONE, WordEnums.NULL_SURE);
+        for (int i = 0; i < wordWrapperList.size(); i++) {
+            ReciteWordWrapper wrapper = new ReciteWordWrapper(wordWrapperList.get(i), View.GONE, WordEnums.NULL_SURE);
             mReciteWordWrapperList.add(wrapper);
         }
     }

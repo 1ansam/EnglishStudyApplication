@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">LForever</string>
 
+    <!-- 基本常用词-->
+    <string name="sign_in">签到</string>
+
     <!--导航页-->
     <string name="guide_activity_experience_immediately">立即体验</string>
 
@@ -124,5 +127,11 @@
     <!-- 背记单词页-->
     <string name="sure">确定</string>
     <string name="not_sure">不确定</string>
+
+    <!-- 下一轮-->
+    <string name="next_recite">开始下一轮</string>
+    <string name="next_recite_complete_word">完成单词：</string>
+    <string name="next_recite_surplus_word">剩余单词：</string>
+    <string name="next_recite_random_test">抽查测试</string>
 
 </resources>

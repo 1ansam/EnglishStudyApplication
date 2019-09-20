@@ -22,7 +22,7 @@ import com.night.basecore.utils.NumberUtil;
 import com.night.basecore.utils.SharedPrefsUtil;
 import com.night.basecore.widget.viewpager.tabSelectListener;
 import com.night.app.consts.BusinessConsts;
-import com.night.app.consts.ShareConsts;
+import com.night.app.consts.SharePreferenceConsts;
 import com.night.api.business.database.BookAction;
 import com.night.api.business.database.BookActionImpl;
 import com.night.api.business.database.BookWordAction;
@@ -114,7 +114,7 @@ public class SelectWordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 clearWordState();
-                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), ShareConsts.DAY_TARGET_NUMBER, 50);
+                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER, 50);
                 for (int i = 0; i < dayTargetNumber; i++) {
                     mUnSelectedWordStateList.get(i).setSelected(true);
                 }
@@ -127,7 +127,7 @@ public class SelectWordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 clearWordState();
-                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), ShareConsts.DAY_TARGET_NUMBER, 50);
+                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER, 50);
                 List<Integer> list = NumberUtil.getRandomList(0, mUnSelectedWordStateList.size(), dayTargetNumber);
                 for (int i = 0; i < list.size(); i++) {
                     mUnSelectedWordStateList.get(list.get(i)).setSelected(true);

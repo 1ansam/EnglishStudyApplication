@@ -1,10 +1,12 @@
 package com.night.model.wrapper.database;
 
+import java.io.Serializable;
+
 /**
  * 在WordWrapper类中使用
  * 对应word本地数据库表
  */
-public class WordTranslationWrapper {
+public class WordTranslationWrapper implements Serializable {
     private String wordPart;
 
     private String wordMean;

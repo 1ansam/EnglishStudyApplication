@@ -1,11 +1,13 @@
 package com.night.model.wrapper.database;
 
 
+import java.io.Serializable;
+
 /**
  * BookWordWrapper类使用
  * 对应book_library_name表
  */
-public class WordStateWrapper {
+public class WordStateWrapper implements Serializable {
     private String wordName;
 
     private boolean isSelected;

@@ -43,7 +43,13 @@ public class BusinessConsts {
         return dataList;
     }
 
+    /**
+     * 单词书数据表名
+     */
     public static String BOOK_LIBRARY_NAME = "BOOK_LIBRARY_NAME";
 
+    /**
+     * 单词书中文名
+     */
     public static String BOOK_CHINESE_NAME = "BOOK_CHINESE_NAME";
 }

@@ -1,6 +1,8 @@
 package com.night.model.wrapper.first.whitewall;
 
-public class WhiteWallWrapper {
+import java.io.Serializable;
+
+public class WhiteWallWrapper implements Serializable {
     private String userLevel;
     private String userPetName;
     private String userComment;
