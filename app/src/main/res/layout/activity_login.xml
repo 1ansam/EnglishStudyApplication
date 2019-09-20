@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/login_activity_layout_background">
+    android:background="@mipmap/login_background">
 
     <TextView
         android:id="@+id/login_title_tv_name"
@@ -24,7 +24,7 @@
         android:layout_below="@id/login_title_tv_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@color/white_transparent_background_00"
+        android:background="@color/transparent"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
@@ -59,7 +59,7 @@
         <CheckBox
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:background="@drawable/button_check_background_selector"
+            android:background="@drawable/square_check_box_selector"
             android:button="@null"
             android:checked="false" />
 
@@ -101,19 +101,19 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_qq" />
+                android:src="@mipmap/icon_qq_circular" />
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_wechat" />
+                android:src="@mipmap/icon_wechat_circular" />
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_weibo" />
+                android:src="@mipmap/icon_weibo_circular" />
         </LinearLayout>
     </LinearLayout>
 

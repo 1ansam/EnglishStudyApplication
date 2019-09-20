@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/select_book_title_layout"
-        android:background="@color/layout_background_white" />
+        android:background="@color/layout_white" />
 
 </RelativeLayout>

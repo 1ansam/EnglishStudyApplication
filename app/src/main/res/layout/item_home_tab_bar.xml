@@ -19,6 +19,6 @@
         android:layout_below="@id/home_iv_tab_bar_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
-        android:textColor="@drawable/cyan_tabbar_text_color" />
+        android:textColor="@drawable/text_cyan_hint_color_selector" />
 
 </RelativeLayout>

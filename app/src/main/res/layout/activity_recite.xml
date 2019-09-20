@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:background="@color/layout_background_white">
+    android:background="@color/layout_white">
 
     <include
         android:id="@+id/recite_layout_title"

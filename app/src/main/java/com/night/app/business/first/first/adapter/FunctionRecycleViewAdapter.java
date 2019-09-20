@@ -19,10 +19,10 @@ public class FunctionRecycleViewAdapter extends RecyclerView.Adapter<FunctionRec
             R.string.function_friends, R.string.function_white_wall, R.string.function_message,
             R.string.function_study_statics, R.string.function_medal ,R.string.function_shop,R.string.function_regional_ranking};
 
-    private int[]   imgIdArr  = new int[] { R.drawable.function_icon_my_study_love,
-            R.drawable.function_icon_my_study_partner, R.drawable.function_icon_my_friends,
-            R.drawable.function_icon_my_white_wall, R.drawable.function_icon_my_message,
-            R.drawable.function_icon_study_data_statics, R.drawable.function_icon_my_medal ,R.drawable.function_icon_shop,R.drawable.function_icon_regional_ranking};
+    private int[]   imgIdArr  = new int[] { R.drawable.function_my_study_love_selector,
+            R.drawable.function_my_study_partner_selector, R.drawable.function_my_friends_selector,
+            R.drawable.function_my_white_wall_selector, R.drawable.function_my_message_selector,
+            R.drawable.function_study_data_statics_selector, R.drawable.function_my_medal_selector,R.drawable.function_shop_selector,R.drawable.function_regional_ranking_selector};
 
     public FunctionRecycleViewAdapter(Context context) {
         mContext=context;

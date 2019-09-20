@@ -16,7 +16,7 @@
         android:id="@+id/guide_activity_btn_experience_immediately"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:background="@drawable/btn_background_circular_corner"
+        android:background="@drawable/btn_circular_cyan"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"

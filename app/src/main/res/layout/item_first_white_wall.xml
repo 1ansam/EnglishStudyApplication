@@ -9,7 +9,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="@dimen/layout_margin_horizontal"
         android:layout_marginTop="6dp"
-        android:src="@mipmap/icon_white_wall_user_tip"
+        android:src="@mipmap/icon_heart_spread"
         android:textSize="@dimen/text_size_20" />
 
     <LinearLayout
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_mini_margin_vertical"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -25,7 +25,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/layout_mini_margin_vertical"
+            android:layout_marginTop="2dp"
             android:paddingTop="4dp"
             android:src="@mipmap/icon_level_four" />
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginStart="@dimen/layout_margin_horizontal"
-            android:layout_marginTop="@dimen/layout_mini_margin_vertical"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/white_wall_iv_user_level"
             android:gravity="center"
             android:text="@string/white_wall_user_pet_name"

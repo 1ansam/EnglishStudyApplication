@@ -6,30 +6,40 @@
 
     <!--主题色-->
     <color name="theme_cyan">#ADD8E6</color>
+    <color name="theme_dark_cyan">#A2B5CD</color>
 
     <!--背景色-->
-    <color name="white_transparent_background_00">#00ffffff</color>
-    <color name="white_transparent_background_30">#30ffffff</color>
-    <color name="white_transparent_background_50">#50ffffff</color>
-    <color name="bottom_background_white">#fffafa</color>
-    <color name="layout_background_white">#fffafa</color>
-    <color name="layout_background_transparent_50_cyan">#50ADD3EE</color>
-    <color name="layout_background_light_cyan">#EDEDED</color>
-    <color name="layout_background_dark_cyan">#A2B5CD</color>
-    <color name="layout_background_dark_cyan_50">#50A2B5CD</color>
-    <color name="layout_background_light_orange">#50FFDEAD</color>
-    <color name="layout_background_orange">#FFDEAD</color>
-    <color name="layout_background_light_pink">#30ffc1c1</color>
-    <color name="layout_background_gray">#EBEBEB</color>
+    <color name="layout_white_30">#30ffffff</color>
+    <color name="layout_white_50">#50ffffff</color>
+    <color name="layout_white_70">#70ffffff</color>
+    <color name="layout_white">#fffafa</color>
+    <color name="layout_cyan">#ADD3EE</color>
+    <color name="layout_cyan_50">#50ADD3EE</color>
+    <color name="layout_light_cyan">#EDEDED</color>
+    <color name="layout_dark_cyan">#A2B5CD</color>
+    <color name="layout_dark_cyan_50">#50A2B5CD</color>
+    <color name="layout_orange_50">#50FFDEAD</color>
+    <color name="layout_orange">#FFDEAD</color>
+    <color name="layout_pink_50">#50ffc1c1</color>
+    <color name="layout_pink">#ffc1c1</color>
+    <color name="layout_gray">#EBEBEB</color>
+    <color name="layout_black_80">#80000000</color>
+
     <!--按钮颜色-->
     <color name="btn_cyan">#ADD3EE</color>
+    <color name="btn_dark_cyan">#A2B5CD</color>
+    <color name="btn_orange">#FFDEAD</color>
+    <color name="btn_pink">#ffc1c1</color>
+    <color name="btn_white">#ffffff</color>
 
     <!--线条颜色-->
-    <color name="line_cyan_color">#ADD3EE</color>
-    <color name="line_white_color">#FFFFFF</color>
-    <color name="line_transparent80_white_color">#80FFFFFF</color>
-    <color name="line_gray_color">#9a9a9a</color>
-    <color name="line_cyan_dark">#A2B5CD</color>
+    <color name="line_cyan">#ADD3EE</color>
+    <color name="line_white">#FFFFFF</color>
+    <color name="line_white_80">#80FFFFFF</color>
+    <color name="line_gray">#9a9a9a</color>
+    <color name="line_dark_cyan">#A2B5CD</color>
+    <color name="line_black">#000000</color>
+    <color name="line_light_cyan">#EDEDED</color>
 
     <!--文字颜色-->
     <color name="text_dark_black">#000000</color>
@@ -37,7 +47,6 @@
     <color name="text_gray">#9a9a9a</color>
     <color name="text_hint">#9a9a9a</color>
     <color name="text_white">#ffffff</color>
-    <color name="text_light_white">#90ffffff</color>
     <color name="text_cyan">#ADD3EE</color>
     <color name="text_dark_cyan">#A2B5CD</color>
     <color name="text_red">#FF6A6A</color>
@@ -52,4 +61,14 @@
     <color name="cyan_dark">#A2B5CD</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="orange">#FFDEAD</color>
+    <color name="pink">#FFC1C1</color>
+    <color name="green">#7CCD7C</color>
+    <color name="red">#FF6A6A</color>
+
+    <!--    备注图片颜色-->
+    <color name="picture_dark_cyan">#A2B5CD</color>
+    <color name="picture_cyan">#ADD8E6</color>
+    <color name="picture_gray">#777777</color>
+    <color name="picture_light_gray">#bfbfbf</color>
 </resources>

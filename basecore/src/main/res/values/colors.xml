@@ -4,9 +4,14 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <!--    轮询颜色-->
     <color name="circle_indicator_background_color">#ADD8E6</color>
     <color name="circle_indicator_move_color_dark_cyan">#A2B5CD</color>
     <color name="circle_indicator_movewcolor_light_red">#EE0000</color>
 
     <color name="dark_cyan">#A2B5CD</color>
+
+<!--    基本颜色-->
+    <color name="white">#ffffff</color>
+    <color name="cyan">#ADD8E6</color>
 </resources>

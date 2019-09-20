@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/layout_background_white"
+    android:background="@color/layout_white"
     android:orientation="vertical">
 
     <!--title-->
@@ -27,7 +27,7 @@
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_add_friend" />
+            android:src="@mipmap/icon_add_friend_gray" />
 
         <ImageView
             android:id="@+id/home_first_iv_scan"
@@ -36,7 +36,7 @@
             android:layout_alignBottom="@+id/home_first_iv_add_friend"
             android:layout_marginEnd="15dp"
             android:layout_toStartOf="@id/home_first_iv_add_friend"
-            android:src="@mipmap/icon_scan" />
+            android:src="@mipmap/icon_scan_gray" />
 
         <ImageView
             android:id="@+id/home_first_iv_qr_code"
@@ -45,7 +45,7 @@
             android:layout_alignBottom="@+id/home_first_iv_scan"
             android:layout_marginEnd="15dp"
             android:layout_toStartOf="@id/home_first_iv_scan"
-            android:src="@mipmap/icon_qr_code" />
+            android:src="@mipmap/icon_qr_code_gray" />
     </RelativeLayout>
 
     <!--banner-->
@@ -61,7 +61,7 @@
 
     </com.night.basecore.widget.circleslidingindicator.CircleSlidingIndicator>
 
-    <include layout="@layout/line_horizontal_cyan_dark_6" />
+    <include layout="@layout/line_horizontal_light_cyan" />
 
     <!--myself-->
     <RelativeLayout
@@ -70,7 +70,7 @@
         android:layout_marginStart="@dimen/layout_margin_horizontal"
         android:layout_marginTop="@dimen/layout_margin_vertical"
         android:layout_marginEnd="@dimen/layout_margin_horizontal"
-        android:background="@drawable/layout_background_cyan_circular_corner">
+        android:background="@drawable/layout_circular_cyan_50">
 
         <com.night.basecore.widget.customimageview.widget.CustomShapeImageView
             android:id="@+id/home_first_custom_iv_myself"
@@ -93,7 +93,7 @@
         android:layout_marginStart="@dimen/layout_margin_horizontal"
         android:layout_marginTop="@dimen/layout_margin_vertical"
         android:layout_marginEnd="@dimen/layout_margin_horizontal"
-        android:background="@drawable/layout_background_light_orange_circular_corner">
+        android:background="@drawable/layout_circular_orange_50">
 
         <com.night.basecore.widget.customimageview.widget.CustomShapeImageView
             android:id="@+id/home_first_custom_iv_partner"
@@ -117,11 +117,11 @@
         android:layout_marginTop="@dimen/layout_margin_vertical"
         android:layout_marginEnd="@dimen/layout_margin_horizontal"
         android:layout_marginBottom="@dimen/layout_margin_vertical"
-        android:background="@drawable/layout_background_light_pink_circular_corner">
+        android:background="@drawable/layout_circular_pink_50">
 
     </com.night.basecore.widget.verticalviewpager.VerticalViewPager>
 
-    <include layout="@layout/line_horizontal_cyan_dark_6" />
+    <include layout="@layout/line_horizontal_light_cyan" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_first_layout_function_container"

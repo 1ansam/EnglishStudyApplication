@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/layout_background_white">
+    android:background="@color/layout_white">
 
     <TextView
         android:id="@+id/account_tv_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_layout_height"
-        android:background="@color/layout_background_dark_cyan"
+        android:background="@color/layout_dark_cyan"
         android:gravity="center"
         android:text="@string/home_account"
         android:textColor="@color/text_black"

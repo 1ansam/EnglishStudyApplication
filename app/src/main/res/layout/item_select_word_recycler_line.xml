@@ -11,7 +11,7 @@
         android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:button="@null"
-        android:background="@drawable/button_circle_background_selector" />
+        android:background="@drawable/circle_check_box_selector" />
 
     <TextView
         android:id="@+id/select_word_item_line_tv_name"

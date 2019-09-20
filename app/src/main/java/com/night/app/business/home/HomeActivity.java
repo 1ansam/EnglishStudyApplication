@@ -51,7 +51,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initTab() {
-        int[] iconsIdArr=new int[]{R.drawable.home_tabbar_first_btn,R.drawable.home_tabbar_study_btn,R.drawable.home_tabbar_activity_btn,R.drawable.home_tabbar_community_btn};
+        int[] iconsIdArr=new int[]{R.drawable.home_tab_first_selector,R.drawable.home_tab_study_selector,R.drawable.home_tab_activity_selector,R.drawable.home_tab_community_selector};
         int[] tabTextIdArr=new int[]{R.string.home_first,R.string.home_study,R.string.home_activity,R.string.home_account};
         for(int i=0;i<iconsIdArr.length;i++){
             View tabItem =getLayoutInflater().inflate(R.layout.item_home_tab_bar,null);

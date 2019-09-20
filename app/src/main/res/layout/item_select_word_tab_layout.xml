@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@drawable/dark_cyan_tabbar_text_color"
+        android:textColor="@drawable/text_dark_cyan_hint_color_selector"
         android:textSize="@dimen/text_size_14"
         android:textStyle="bold"/>
 

@@ -5,9 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.night.app.R;
-import com.night.app.business.home.HomeActivity;
 import com.night.api.database.DatabaseUtil;
+import com.night.app.R;
+import com.night.app.business.startup.guide.GuideActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseUtil.packDataBase(this);
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        Intent intent = new Intent(MainActivity.this, GuideActivity.class);
         startActivity(intent);
 
     }

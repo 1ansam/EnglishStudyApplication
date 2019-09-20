@@ -133,7 +133,7 @@ public class HomeFirstFragment extends BaseFragment {
         mCircleSlidingIndicatorBanner.setFloatPointWidth(20);
         mCircleSlidingIndicatorBanner.setCircleSlidingIndicatorMarginBottomSpace(15);
         mCircleSlidingIndicatorBanner
-                .setViewPagerImageViewBackground(R.drawable.layout_background_white_circular_corner);
+                .setViewPagerImageViewBackground(R.drawable.layout_circular_white);
         mCircleSlidingIndicatorBanner.showCircleSlidingIndicatorByImgId(bannerImageResourceIdList, true, null);
     }
 

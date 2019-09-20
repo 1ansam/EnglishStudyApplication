@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".business.study.recite.NextReciteActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/layout_white">
+
+        <include
+            android:id="@+id/next_recite_title"
+            layout="@layout/common_activity_title_layout" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/next_recite_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:tabIndicatorColor="@color/cyan_dark"
+            android:layout_below="@+id/next_recite_title"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/next_recite_tab_layout"
+            android:layout_above="@+id/next_recite_btn_next_recite"/>
+
+        <Button
+            android:id="@+id/next_recite_btn_next_recite"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_circular_cyan"/>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

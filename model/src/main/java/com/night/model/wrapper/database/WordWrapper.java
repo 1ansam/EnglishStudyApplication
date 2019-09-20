@@ -2,26 +2,28 @@ package com.night.model.wrapper.database;
 
 import java.util.List;
 
-
 /**
  * 对应word本地数据库表
+ * @author zwt
  */
 public class WordWrapper {
-    private String wordName;
 
-    private String wordPhEn;
+    private String                       wordName;
 
-    private String wordPhEnMp3;
+    private String                       wordPhEn;
 
-    private String wordPhAm;
+    private String                       wordPhEnMp3;
 
-    private String wordPhAmMp3;
+    private String                       wordPhAm;
+
+    private String                       wordPhAmMp3;
 
     private List<WordTranslationWrapper> wordTranslationWrapperList;
 
-    private int wordCollectState;
+    private int                          wordCollectState;
 
-    public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3, List<WordTranslationWrapper> wordTranslationWrapperList) {
+    public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3,
+            List<WordTranslationWrapper> wordTranslationWrapperList) {
         this.wordName = wordName;
         this.wordPhEn = wordPhEn;
         this.wordPhEnMp3 = wordPhEnMp3;
@@ -30,7 +32,8 @@ public class WordWrapper {
         this.wordTranslationWrapperList = wordTranslationWrapperList;
     }
 
-    public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3, List<WordTranslationWrapper> wordTranslationWrapperList, int wordCollectState) {
+    public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3,
+            List<WordTranslationWrapper> wordTranslationWrapperList, int wordCollectState) {
         this.wordName = wordName;
         this.wordPhEn = wordPhEn;
         this.wordPhEnMp3 = wordPhEnMp3;

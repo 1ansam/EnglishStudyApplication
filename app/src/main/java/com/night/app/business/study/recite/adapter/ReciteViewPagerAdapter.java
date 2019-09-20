@@ -25,7 +25,7 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(final int position) {
         mFragment = new ReciteFragment();
         mFragment.setReciteWordWrapper(mWrapperList.get(position));
-        mFragment.setNextFragmentItem(new ReciteFragment.FragmentNextFragmentItem() {
+        mFragment.setNextFragmentItem(new ReciteFragment.FragmentNextFragmentItemListener() {
             @Override
             public void nextItem() {
                 if(mNextFragmentItem!=null){

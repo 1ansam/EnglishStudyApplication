@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/layout_background_gray">
+    android:background="@color/layout_gray">
 
     <include
         android:id="@+id/query_word_title_layout"
@@ -19,7 +19,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/layout_background_white_circular_corner"
+            android:background="@drawable/layout_circular_white"
             android:paddingStart="20dp"/>
 
         <Button
@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
-            android:background="@drawable/layout_background_cyan_circular_corner"
+            android:background="@drawable/btn_circular_cyan_50"
             android:text="@string/query_word_query" />
     </RelativeLayout>
 
