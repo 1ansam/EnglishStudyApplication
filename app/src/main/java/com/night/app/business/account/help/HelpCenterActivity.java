@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.night.app.R;
 import com.night.app.base.activity.BaseActivity;
 import com.night.app.business.account.help.adapter.HelpCenterRecycleViewAdapter;
-import com.night.app.common.title.TitleInitUtil;
+import com.night.app.common.util.TitleInitUtil;
 
 public class HelpCenterActivity extends BaseActivity {
     private RecyclerView mRecycleView;

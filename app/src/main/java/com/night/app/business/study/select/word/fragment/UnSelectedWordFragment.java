@@ -147,9 +147,14 @@ public class UnSelectedWordFragment extends BaseFragment {
                             endIndex = position;
                         }
                         for (int i = startIndex; i <= endIndex; i++) {
+                            if (i < 0) {
+                                continue;
+                            }
                             mSelectedWordList.get(i).reverseSelectedState();
                         }
                         mRecyclerAdapter.refresh(mSelectedWordList);
+                        break;
+                    default:
                         break;
                     }
                 }

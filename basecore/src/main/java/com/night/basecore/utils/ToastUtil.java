@@ -9,28 +9,28 @@ public class ToastUtil {
         if (str == null) {
             return;
         }
-        Toast.makeText(c,str,Toast.LENGTH_LONG);
+        Toast.makeText(c,str,Toast.LENGTH_LONG).show();
     }
 
     public static void showLongToast(Context c, int strId) {
         if (strId <= 0) {
             return;
         }
-        Toast.makeText(c,String.valueOf(strId),Toast.LENGTH_LONG);
+        Toast.makeText(c,String.valueOf(strId),Toast.LENGTH_LONG).show();
     }
 
     public static void showShortToast(Context c, String str) {
         if (str == null) {
             return;
         }
-        Toast.makeText(c,str,Toast.LENGTH_SHORT);
+        Toast.makeText(c,str,Toast.LENGTH_SHORT).show();
     }
 
     public static void showShortToast(Context c, int strId) {
         if (strId <= 0) {
             return;
         }
-        Toast.makeText(c,String.valueOf(strId),Toast.LENGTH_SHORT);
+        Toast.makeText(c,String.valueOf(strId),Toast.LENGTH_SHORT).show();
     }
 }
 

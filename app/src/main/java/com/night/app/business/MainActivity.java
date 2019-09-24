@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         DatabaseUtil.packDataBase(this);
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);

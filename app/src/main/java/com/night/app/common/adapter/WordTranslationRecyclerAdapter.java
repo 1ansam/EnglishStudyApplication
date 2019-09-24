@@ -1,17 +1,17 @@
-package com.night.app.business.study.recite.adapter;
+package com.night.app.common.adapter;
 
 import android.content.Context;
 import android.widget.TextView;
 
 import com.night.app.R;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
-import com.night.model.wrapper.database.WordTranslationWrapper;
+import com.night.model.wrapper.Common.WordTranslationWrapper;
 
 import java.util.List;
 
-public class ReciteWordTranslationRecyclerViewAdapter extends BaseRecyclerAdapter<WordTranslationWrapper> {
+public class WordTranslationRecyclerAdapter extends BaseRecyclerAdapter<WordTranslationWrapper> {
 
-    public ReciteWordTranslationRecyclerViewAdapter(Context context, List<WordTranslationWrapper> data) {
+    public WordTranslationRecyclerAdapter(Context context, List<WordTranslationWrapper> data) {
         super(context, data);
     }
 

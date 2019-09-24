@@ -1,10 +1,10 @@
-package com.night.model.wrapper.database;
+package com.night.model.wrapper.Common;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 对应word本地数据库表
+ * 对应word本地数据库表,简单转换后的Wrapper
  * @author zwt
  */
 public class WordWrapper implements Serializable {
@@ -23,8 +23,11 @@ public class WordWrapper implements Serializable {
 
     private int                          wordCollectState;
 
+    public WordWrapper() {
+    }
+
     public WordWrapper(String wordName, String wordPhEn, String wordPhEnMp3, String wordPhAm, String wordPhAmMp3,
-            List<WordTranslationWrapper> wordTranslationWrapperList) {
+                       List<WordTranslationWrapper> wordTranslationWrapperList) {
         this.wordName = wordName;
         this.wordPhEn = wordPhEn;
         this.wordPhEnMp3 = wordPhEnMp3;

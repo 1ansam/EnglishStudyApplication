@@ -7,20 +7,21 @@ import android.database.sqlite.SQLiteDatabase;
 import com.night.api.database.DBOpenHelper;
 
 public class BaseSQLiteActionImpl {
-    public Context        context;
+    protected Context        context;
 
-    public DBOpenHelper openHelper;
+    protected DBOpenHelper openHelper;
 
-    public SQLiteDatabase database;
+    protected SQLiteDatabase database;
 
-    public Cursor cursor;
+    protected Cursor cursor;
 
     public BaseSQLiteActionImpl(Context context) {
         this.context = context;
         openHelper = new DBOpenHelper(context);
+
     }
 
-    public void close() {
+    protected void close() {
         database.setTransactionSuccessful();
         database.endTransaction();
 
@@ -32,7 +33,7 @@ public class BaseSQLiteActionImpl {
         openHelper.close();
     }
 
-    public int getFieldIndex(String fieldName){
+    protected int getFieldIndex(String fieldName){
         return cursor.getColumnIndex(fieldName);
     }
 }

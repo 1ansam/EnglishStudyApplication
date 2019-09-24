@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_circular_white"
+    android:elevation="8dp"
+    android:paddingStart="@dimen/recite_layout_margin_horizontal"
+    android:paddingEnd="@dimen/recite_layout_margin_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/recite_layout_tool"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/recite_iv_sure_state"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/recite_tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_hint"
+            android:textSize="@dimen/text_size_16" />
+
+        <ImageView
+            android:id="@+id/recite_iv_collect"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/star_selector" />
+
+    </RelativeLayout>
+
+
+    <include
+        layout="@layout/item_vertical_word_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/recite_layout_button"
+        android:layout_below="@+id/recite_layout_tool"
+        android:layout_centerInParent="true" />
+
+
+    <ImageView
+        android:id="@+id/recite_iv_eye"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_below="@+id/recite_layout_main_word_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-32dp"
+        android:src="@mipmap/icon_eye_close_gray"
+        android:tag="close" />
+
+
+    <LinearLayout
+        android:id="@+id/recite_layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/recite_btn_not_sure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_circular_cyan_50"
+            android:text="@string/not_sure"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/recite_btn_sure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_circular_orange"
+            android:text="@string/sure"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+

@@ -14,15 +14,19 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.night.api.business.database.CurrentAction;
+import com.night.api.business.database.CurrentActionImpl;
 import com.night.api.business.database.WordAction;
 import com.night.api.business.database.WordActionImpl;
 import com.night.app.R;
 import com.night.app.base.fragment.BaseFragment;
-import com.night.app.business.study.recite.adapter.ReciteWordTranslationRecyclerViewAdapter;
-import com.night.app.consts.enums.WordEnums;
+import com.night.app.common.adapter.WordTranslationRecyclerAdapter;
+import com.night.api.consts.enums.WordEnums;
+import com.night.api.business.util.WordUtil;
 import com.night.basecore.utils.MediaPlayerUtil;
 import com.night.basecore.utils.StyleUtil;
 import com.night.basecore.widget.recyclerview.CustomLinearLayoutManager;
+import com.night.model.wrapper.database.CurrentWrapper;
 import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 /**
@@ -32,6 +36,8 @@ public class ReciteFragment extends BaseFragment {
     private ImageView                                mIvCollect;
 
     private ImageView                                mIvSureState;
+
+    private TextView mTvProgress;
 
     private TextView                                 mTvWordName;
 
@@ -53,19 +59,37 @@ public class ReciteFragment extends BaseFragment {
 
     private Button                                   mBtnSure;
 
-    private ReciteWordTranslationRecyclerViewAdapter mRecyclerViewTranslationAdapter;
+    private WordTranslationRecyclerAdapter mRecyclerViewTranslationAdapter;
 
     private ReciteWordWrapper                        mReciteWordWrapper;
 
     private WordAction                               mWordAction;
 
+    private CurrentAction                            mCurrentAction;
+
     private FragmentNextFragmentItemListener         mNextFragmentItem;
+
+    /**
+     * 当前fragment所在位置
+     */
+    private int position;
+
+    /**
+     * 当前数据长度
+     */
+    private int size;
+
+    public ReciteFragment(ReciteWordWrapper reciteWordWrapper,int position,int size) {
+        this.mReciteWordWrapper=reciteWordWrapper;
+        this.position=position;
+        this.size=size;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.item_recite_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_recite_fragment, container, false);
         initView();
         initClick();
         return view;
@@ -75,13 +99,14 @@ public class ReciteFragment extends BaseFragment {
     public void initView() {
         mIvCollect = view.findViewById(R.id.recite_iv_collect);
         mIvSureState = view.findViewById(R.id.recite_iv_sure_state);
-        mTvWordName = view.findViewById(R.id.recite_tv_word_name);
-        mTvWordPhEn = view.findViewById(R.id.recite_tv_word_ph_en);
-        mIvWordPhEnMp3 = view.findViewById(R.id.recite_iv_word_ph_en_mp3);
-        mTvWordPhAm = view.findViewById(R.id.recite_tv_word_ph_am);
-        mIvWordPhAmMp3 = view.findViewById(R.id.recite_iv_word_ph_am_mp3);
-        mRecyclerViewWordTranslation = view.findViewById(R.id.recite_recycler_view_word_translation);
-        mRecyclerViewTranslationAdapter = new ReciteWordTranslationRecyclerViewAdapter(getContext(),
+        mTvProgress=view.findViewById(R.id.recite_tv_progress);
+        mTvWordName = view.findViewById(R.id.word_tv_name);
+        mTvWordPhEn = view.findViewById(R.id.word_tv_ph_en);
+        mIvWordPhEnMp3 = view.findViewById(R.id.word_iv_ph_en_mp3);
+        mTvWordPhAm = view.findViewById(R.id.word_tv_ph_am);
+        mIvWordPhAmMp3 = view.findViewById(R.id.word_iv_ph_am_mp3);
+        mRecyclerViewWordTranslation = view.findViewById(R.id.word_recycler_view_translation);
+        mRecyclerViewTranslationAdapter = new WordTranslationRecyclerAdapter(getContext(),
                 mReciteWordWrapper.getWordWrapper().getWordTranslationWrapperList());
         mRecyclerViewWordTranslation.setAdapter(mRecyclerViewTranslationAdapter);
         mRecyclerViewWordTranslation
@@ -91,10 +116,12 @@ public class ReciteFragment extends BaseFragment {
         mBtnNotSure = view.findViewById(R.id.recite_btn_not_sure);
         mBtnSure = view.findViewById(R.id.recite_btn_sure);
         mWordAction = new WordActionImpl(getContext());
+        mCurrentAction = new CurrentActionImpl(getContext());
 
+        mTvProgress.setText(String.valueOf(position+1)+"/"+String.valueOf(size));
         mTvWordName.setText(mReciteWordWrapper.getWordWrapper().getWordName());
-        mTvWordPhEn.setText(StyleUtil.getWordPh(mReciteWordWrapper.getWordWrapper().getWordPhEn(),1));
-        mTvWordPhAm.setText(StyleUtil.getWordPh(mReciteWordWrapper.getWordWrapper().getWordPhAm(),2));
+        mTvWordPhEn.setText(StyleUtil.getWordPh(mReciteWordWrapper.getWordWrapper().getWordPhEn(), "en"));
+        mTvWordPhAm.setText(StyleUtil.getWordPh(mReciteWordWrapper.getWordWrapper().getWordPhAm(), "am"));
         mIvWordPhEnMp3.setTag(mReciteWordWrapper.getWordWrapper().getWordPhEnMp3());
         mIvWordPhAmMp3.setTag(mReciteWordWrapper.getWordWrapper().getWordPhAmMp3());
 
@@ -125,7 +152,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 final String mp3Url = (String) mIvWordPhEnMp3.getTag();
-                MediaPlayerUtil.playHornAnimation(getContext(),mIvWordPhEnMp3, mp3Url);
+                MediaPlayerUtil.playHornAnimation(getContext(), mIvWordPhEnMp3, mp3Url);
             }
         });
 
@@ -133,7 +160,7 @@ public class ReciteFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 final String mp3Url = (String) mIvWordPhAmMp3.getTag();
-                MediaPlayerUtil.playHornAnimation(getContext(),mIvWordPhAmMp3, mp3Url);
+                MediaPlayerUtil.playHornAnimation(getContext(), mIvWordPhAmMp3, mp3Url);
             }
         });
 
@@ -153,6 +180,8 @@ public class ReciteFragment extends BaseFragment {
                 if (mNextFragmentItem != null) {
                     mNextFragmentItem.nextItem();
                 }
+                mCurrentAction.updateCurrentState(mReciteWordWrapper.getCurrentWrapper().getWordName(),
+                        WordEnums.STATE_ING);
             }
         });
 
@@ -164,6 +193,14 @@ public class ReciteFragment extends BaseFragment {
                 mReciteWordWrapper.setWordReciteState(WordEnums.SURE);
                 if (mNextFragmentItem != null) {
                     mNextFragmentItem.nextItem();
+                }
+                CurrentWrapper currentWrapper = mReciteWordWrapper.getCurrentWrapper();
+                int expectedNextDate = WordUtil.getEexpectedNextDate(currentWrapper);
+                if (expectedNextDate == 0) {
+                    mCurrentAction.updateCurrentEnd(currentWrapper.getWordName());
+                } else {
+                    mCurrentAction.updateCurrentNextDate(currentWrapper.getWordName(), expectedNextDate,
+                            WordEnums.STATE_ING);
                 }
             }
         });
@@ -180,7 +217,7 @@ public class ReciteFragment extends BaseFragment {
         if (mReciteWordWrapper.getWordWrapper().getWordCollectState() == WordEnums.COLLECTED) {
             mIvCollect.setImageResource(R.mipmap.icon_star_cyan);
         } else {
-            mIvCollect.setImageResource(R.mipmap.icon_star_gray);
+            mIvCollect.setImageResource(R.mipmap.icon_star_light_gray);
         }
     }
 

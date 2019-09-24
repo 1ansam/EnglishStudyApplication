@@ -1,4 +1,4 @@
-package com.night.app.common.title;
+package com.night.app.common.util;
 
 import android.app.Activity;
 import android.view.View;

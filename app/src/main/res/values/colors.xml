@@ -58,7 +58,9 @@
     <!--常用基础色-->
     <color name="transparent">#00ffffff</color>
     <color name="cyan">#ADD8E6</color>
-    <color name="cyan_dark">#A2B5CD</color>
+    <color name="dark_cyan">#A2B5CD</color>
+    <color name="dark_cyan_50">#50A2B5CD</color>
+    <color name="dark_cyan_80">#80A2B5CD</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="orange">#FFDEAD</color>

@@ -1,5 +1,6 @@
 package com.night.app.consts;
 
+
 import com.night.app.R;
 import com.night.model.wrapper.baseui.CommonFunctionWrapper;
 

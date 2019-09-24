@@ -10,7 +10,7 @@ import com.night.model.wrapper.recite.ReciteWordWrapper;
 import java.util.List;
 
 public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
-    private ReciteFragment    mFragment = new ReciteFragment();
+    private ReciteFragment    mFragment ;
 
     private List<ReciteWordWrapper> mWrapperList;
 
@@ -23,8 +23,7 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(final int position) {
-        mFragment = new ReciteFragment();
-        mFragment.setReciteWordWrapper(mWrapperList.get(position));
+        mFragment = new ReciteFragment(mWrapperList.get(position),position,mWrapperList.size());
         mFragment.setNextFragmentItem(new ReciteFragment.FragmentNextFragmentItemListener() {
             @Override
             public void nextItem() {
@@ -38,16 +37,22 @@ public class ReciteViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        if (mWrapperList != null)
+        if (mWrapperList != null) {
             return mWrapperList.size();
+        }
         return 0;
     }
 
     public interface ViewPagerNextFragmentItem {
-        public void nextItem(int position);
+         void nextItem(int position);
     }
 
     public void setNextFragmentItem(ViewPagerNextFragmentItem mNextFragmentItem) {
         this.mNextFragmentItem = mNextFragmentItem;
+    }
+
+    public void refresh(List<ReciteWordWrapper> list){
+        mWrapperList=list;
+        notifyDataSetChanged();
     }
 }

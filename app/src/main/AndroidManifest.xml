@@ -17,7 +17,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".business.study.recite.NextReciteActivity"></activity>
         <activity android:name=".business.study.select.word.SelectWordActivity" />
-        <activity android:name=".business.study.query.QueryWordActivity" />
+        <activity
+            android:name=".business.study.query.QueryWordActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".business.study.select.book.SelectBookActivity" />
         <activity android:name=".business.study.recite.ReciteActivity" />
         <activity android:name=".business.account.help.HelpCenterActivity" />

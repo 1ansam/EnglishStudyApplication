@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.night.app.R;
 import com.night.model.wrapper.first.whitewall.WhiteWallWrapper;
-import com.night.app.consts.enums.UserLevelEnums;
+import com.night.api.consts.enums.UserLevelEnums;
 import com.night.app.base.fragment.BaseFragment;
 
 public class WhiteWallFragment extends BaseFragment {

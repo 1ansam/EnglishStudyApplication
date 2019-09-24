@@ -3,6 +3,10 @@
 
     <!-- 基本常用词-->
     <string name="sign_in">签到</string>
+    <string name="am">美</string>
+    <string name="en">英</string>
+    <string name="add_to_collect">加入我的单词书</string>
+    <string name="add_to_recite">加入每日背记计划</string>
 
     <!--导航页-->
     <string name="guide_activity_experience_immediately">立即体验</string>

@@ -1,4 +1,4 @@
-package com.night.app.consts.enums;
+package com.night.api.consts.enums;
 
 public class WordEnums {
     /**
@@ -35,5 +35,20 @@ public class WordEnums {
      * 只显示美式发音
      */
     public static final int WORD_PH_AM=1;
+
+    /**
+     * 单词第一次被写入数据库表且没有被背记过
+     */
+    public static final int     STATE_FIRST              = 0;
+
+    /**
+     * 单词还在背记周期过程中
+     */
+    public static final int     STATE_ING                = 1;
+
+    /**
+     * 单词在背记结束状态
+     */
+    public static final int     STATE_END                = 2;
 
 }

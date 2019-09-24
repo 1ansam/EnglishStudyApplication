@@ -5,18 +5,27 @@ import java.io.Serializable;
 public class CurrentWrapper implements Serializable {
     private String wordName;
 
-    private int firstDate;
+    private int    firstDate;
 
-    private Integer nextDate;
+    private int    nextDate;
 
-    private Integer endDate;
+    private int    endDate;
 
-    private int state;
+    private int    state;
 
-    public CurrentWrapper(String wordName, int firstDate, Integer nextDate) {
+    public CurrentWrapper(String wordName, int firstDate, int nextDate, int state) {
         this.wordName = wordName;
         this.firstDate = firstDate;
         this.nextDate = nextDate;
+        this.state = state;
+    }
+
+    public CurrentWrapper(String wordName, int firstDate, int nextDate, int endDate, int state) {
+        this.wordName = wordName;
+        this.firstDate = firstDate;
+        this.nextDate = nextDate;
+        this.endDate = endDate;
+        this.state = state;
     }
 
     public String getWordName() {
@@ -35,19 +44,19 @@ public class CurrentWrapper implements Serializable {
         this.firstDate = firstDate;
     }
 
-    public Integer getNextDate() {
+    public int getNextDate() {
         return nextDate;
     }
 
-    public void setNextDate(Integer nextDate) {
+    public void setNextDate(int nextDate) {
         this.nextDate = nextDate;
     }
 
-    public Integer getEndDate() {
+    public int getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Integer endDate) {
+    public void setEndDate(int endDate) {
         this.endDate = endDate;
     }
 

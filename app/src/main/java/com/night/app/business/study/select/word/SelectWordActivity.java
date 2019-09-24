@@ -10,25 +10,28 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.night.api.business.okhttp.WordApiAction;
-import com.night.api.business.okhttp.WordApiActionImpl;
-import com.night.app.R;
-import com.night.app.base.activity.BaseActivity;
-import com.night.app.business.study.select.word.adapter.SelectWordFragmentAdapter;
-import com.night.app.business.study.select.word.fragment.SelectedWordFragment;
-import com.night.app.business.study.select.word.fragment.UnSelectedWordFragment;
-import com.night.app.common.title.TitleInitUtil;
-import com.night.basecore.utils.NumberUtil;
-import com.night.basecore.utils.SharedPrefsUtil;
-import com.night.basecore.widget.viewpager.tabSelectListener;
-import com.night.app.consts.BusinessConsts;
-import com.night.app.consts.SharePreferenceConsts;
 import com.night.api.business.database.BookAction;
 import com.night.api.business.database.BookActionImpl;
 import com.night.api.business.database.BookWordAction;
 import com.night.api.business.database.BookWordActionImpl;
 import com.night.api.business.database.CurrentAction;
 import com.night.api.business.database.CurrentActionImpl;
+import com.night.api.business.okhttp.WordApiAction;
+import com.night.api.business.okhttp.WordApiActionImpl;
+import com.night.api.consts.MessageConsts;
+import com.night.api.consts.SharePreferenceConsts;
+import com.night.app.R;
+import com.night.app.base.activity.BaseActivity;
+import com.night.app.business.study.select.word.adapter.SelectWordFragmentAdapter;
+import com.night.app.business.study.select.word.fragment.SelectedWordFragment;
+import com.night.app.business.study.select.word.fragment.UnSelectedWordFragment;
+import com.night.app.common.util.ProgressUtil;
+import com.night.app.common.util.TitleInitUtil;
+import com.night.app.consts.BusinessConsts;
+import com.night.basecore.utils.NumberUtil;
+import com.night.basecore.utils.SharedPrefsUtil;
+import com.night.basecore.utils.ToastUtil;
+import com.night.basecore.widget.viewpager.tabSelectListener;
 import com.night.model.wrapper.database.BookWordWrapper;
 import com.night.model.wrapper.database.WordStateWrapper;
 
@@ -66,11 +69,15 @@ public class SelectWordActivity extends BaseActivity {
 
     private CurrentAction             mCurrentAction;
 
-    private WordApiAction mWordApiAction;
+    private WordApiAction             mWordApiAction;
 
     private List<WordStateWrapper>    mUnSelectedWordStateList;
 
     private List<WordStateWrapper>    mSelectedWordStateList;
+
+    private int mRecommendNumber;
+
+    public static final int           FINISH_RESULE_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +111,12 @@ public class SelectWordActivity extends BaseActivity {
         mSelectedWordStateList = bookWordWrapper.getSelectedWordList();
         mUnSelectedWordFragment = new UnSelectedWordFragment(mUnSelectedWordStateList);
         mSelectedWordFragment = new SelectedWordFragment(mSelectedWordStateList);
+//        mRecommendNumber=SharedPrefsUtil.getInt(this,SharePreferenceConsts.DAY_TARGET_NUMBER,50)-mCurrentAction.getCurrentRecite()
         initTab();
         initPager();
+
+
+
     }
 
     @Override
@@ -114,7 +125,8 @@ public class SelectWordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 clearWordState();
-                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER, 50);
+                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER,
+                        50);
                 for (int i = 0; i < dayTargetNumber; i++) {
                     mUnSelectedWordStateList.get(i).setSelected(true);
                 }
@@ -127,7 +139,8 @@ public class SelectWordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 clearWordState();
-                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER, 50);
+                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER,
+                        50);
                 List<Integer> list = NumberUtil.getRandomList(0, mUnSelectedWordStateList.size(), dayTargetNumber);
                 for (int i = 0; i < list.size(); i++) {
                     mUnSelectedWordStateList.get(list.get(i)).setSelected(true);
@@ -140,20 +153,36 @@ public class SelectWordActivity extends BaseActivity {
         mLayoutCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<String> commitWordNameList = new ArrayList<>();
+                ProgressUtil.showProgress(SelectWordActivity.this, View.VISIBLE);
+                final List<String> commitWordNameList = new ArrayList<>();
                 for (int i = 0; i < mUnSelectedWordStateList.size(); i++) {
                     if (mUnSelectedWordStateList.get(i).isSelected()) {
                         commitWordNameList.add(mUnSelectedWordStateList.get(i).getWordName());
                     }
                 }
-                // 更新bookWord
-                mBookWordAction.updateBookWordState(commitWordNameList, BookWordActionImpl.WORD_STATE_SELECYED);
-                // 更新book
-                mBookAction.updateWordSelectedNumber(mBookWordAction.getWordExistInBookNumber(commitWordNameList));
-                // 更新current
-                mCurrentAction.insertIntoCurrent(commitWordNameList);
 
-                //网络请求单词数据并写入word表
+                mWordApiAction.setWordApiListener(new WordApiAction.WordApiListener<String>() {
+                    @Override
+                    public void doAfterSuccess(String result) {
+                        // 更新bookWord
+                        mBookWordAction.updateBookWordState(commitWordNameList, BookWordActionImpl.WORD_STATE_SELECYED);
+                        // 更新book
+                        mBookAction
+                                .updateWordSelectedNumber(mBookWordAction.getWordExistInBookNumber(commitWordNameList));
+                        // 更新current
+                        mCurrentAction.insertIntoCurrent(commitWordNameList);
+                        setResult(FINISH_RESULE_CODE);
+                        finish();
+                    }
+
+                    @Override
+                    public void doAfterFailed(String result) {
+                        ProgressUtil.showProgress(SelectWordActivity.this, View.GONE);
+                        ToastUtil.showLongToast(getBaseContext(), MessageConsts.InternetConsts.INTERNET_NOT_AVAILABLE);
+                    }
+                });
+
+                // 网络请求单词数据并写入word表
                 mWordApiAction.getWordEntityList(commitWordNameList);
 
             }

@@ -7,11 +7,11 @@ import android.widget.TextView;
 
 import com.night.app.R;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
-import com.night.app.consts.SharePreferenceConsts;
-import com.night.app.consts.enums.WordEnums;
+import com.night.api.consts.SharePreferenceConsts;
+import com.night.api.consts.enums.WordEnums;
 import com.night.basecore.utils.SharedPrefsUtil;
 import com.night.basecore.utils.StyleUtil;
-import com.night.model.wrapper.database.WordWrapper;
+import com.night.model.wrapper.Common.WordWrapper;
 import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 import java.util.List;
@@ -42,11 +42,11 @@ public class NextReciteItemRecyclerViewAdapter extends BaseRecyclerAdapter<Recit
         WordWrapper wordWrapper = reciteWordWrapper.getWordWrapper();
         tvWordName.setText(wordWrapper.getWordName());
         if (wordPhType == WordEnums.WORD_PH_EN) {
-            tvWordPh.setText(StyleUtil.getWordPh(wordWrapper.getWordPhEn(), 1));
+            tvWordPh.setText(StyleUtil.getWordPh(wordWrapper.getWordPhEn(), "en"));
             ivHorn.setTag(wordWrapper.getWordPhEnMp3());
         }
         if (wordPhType == WordEnums.WORD_PH_AM) {
-            tvWordPh.setText(StyleUtil.getWordPh(wordWrapper.getWordPhAm(), 2));
+            tvWordPh.setText(StyleUtil.getWordPh(wordWrapper.getWordPhAm(), "am"));
             ivHorn.setTag(wordWrapper.getWordPhAmMp3());
         }
         String wordTranslation = "";
@@ -64,11 +64,15 @@ public class NextReciteItemRecyclerViewAdapter extends BaseRecyclerAdapter<Recit
 
     @Override
     public int getItemLayoutId() {
-        return R.layout.item_word_info;
+        return R.layout.item_horzontal_word_info;
     }
 
     public void setWordPhType(int wordPhType) {
         this.wordPhType = wordPhType;
+    }
+
+    public int getWordPhType() {
+        return wordPhType;
     }
 
     public void setWordTranslationVisibility(int wordTranslationVisibility) {

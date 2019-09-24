@@ -1,4 +1,4 @@
-package com.night.app.consts.enums;
+package com.night.api.consts.enums;
 
 public class UserLevelEnums {
     public static final String USER_LEVEL_ONE   = "LV1";

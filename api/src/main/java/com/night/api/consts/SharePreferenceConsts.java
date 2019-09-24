@@ -1,4 +1,4 @@
-package com.night.app.consts;
+package com.night.api.consts;
 
 public class SharePreferenceConsts {
     /**

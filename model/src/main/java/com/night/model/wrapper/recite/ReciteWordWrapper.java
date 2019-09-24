@@ -1,6 +1,7 @@
 package com.night.model.wrapper.recite;
 
-import com.night.model.wrapper.database.WordWrapper;
+import com.night.model.wrapper.database.CurrentWrapper;
+import com.night.model.wrapper.Common.WordWrapper;
 
 import java.io.Serializable;
 
@@ -9,6 +10,11 @@ public class ReciteWordWrapper implements Serializable {
      * 原始单词数据
      */
     private WordWrapper wordWrapper;
+
+    /**
+     * 背记表中的单词状态
+     */
+    private CurrentWrapper currentWrapper;
 
     /**
      * 背记单词页 单词翻译可见状态
@@ -20,8 +26,10 @@ public class ReciteWordWrapper implements Serializable {
      */
     private int         wordReciteState;
 
-    public ReciteWordWrapper(WordWrapper wordWrapper, int translationVisibilityState, int wordReciteState) {
+
+    public ReciteWordWrapper(WordWrapper wordWrapper, CurrentWrapper currentWrapper, int translationVisibilityState, int wordReciteState) {
         this.wordWrapper = wordWrapper;
+        this.currentWrapper = currentWrapper;
         this.translationVisibilityState = translationVisibilityState;
         this.wordReciteState = wordReciteState;
     }
@@ -50,4 +58,11 @@ public class ReciteWordWrapper implements Serializable {
         this.wordReciteState = wordReciteState;
     }
 
+    public CurrentWrapper getCurrentWrapper() {
+        return currentWrapper;
+    }
+
+    public void setCurrentWrapper(CurrentWrapper currentWrapper) {
+        this.currentWrapper = currentWrapper;
+    }
 }
