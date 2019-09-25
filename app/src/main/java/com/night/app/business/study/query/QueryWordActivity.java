@@ -250,8 +250,8 @@ public class QueryWordActivity extends BaseActivity {
      * @param visibility
      */
     private void showWordInfo(int visibility) {
-        boolean isRecited = mCurrentAction.isContainedInTable(mWordWrapper.getWordName());
         if (View.VISIBLE == visibility) {
+            boolean isRecited = mCurrentAction.isContainedInTable(mWordWrapper.getWordName());
             mTvWordName.setText(mWordWrapper.getWordName());
             mTvWordPhEn.setText(StyleUtil.getWordPh(mWordWrapper.getWordPhEn(), "en"));
             mTvWordPhAm.setText(StyleUtil.getWordPh(mWordWrapper.getWordPhAm(), "am"));

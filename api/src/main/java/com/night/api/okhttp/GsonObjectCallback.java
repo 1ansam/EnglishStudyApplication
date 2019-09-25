@@ -62,12 +62,6 @@ public abstract class GsonObjectCallback<T> implements Callback {
                 onSuccess(t);
             }
         });
-        // Runnable runnable = new Runnable() {
-        // @Override
-        // public void run() {
-        // onSuccess(t);
-        // }
-        // };
-        // ThreadPoolManager.getInstance().execute(runnable);
+
     }
 }
