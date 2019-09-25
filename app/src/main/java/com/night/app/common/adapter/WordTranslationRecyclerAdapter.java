@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.night.app.R;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
-import com.night.model.wrapper.Common.WordTranslationWrapper;
+import com.night.model.wrapper.common.WordTranslationWrapper;
 
 import java.util.List;
 

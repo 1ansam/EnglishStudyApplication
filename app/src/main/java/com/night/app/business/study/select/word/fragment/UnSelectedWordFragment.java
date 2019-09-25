@@ -164,12 +164,12 @@ public class UnSelectedWordFragment extends BaseFragment {
 
     }
 
-    public SelectWordRecyclerViewAdapter getmRecyclerAdapter() {
+    public SelectWordRecyclerViewAdapter getRecyclerAdapter() {
         return mRecyclerAdapter;
     }
 
-    public void setmSelectedNumber(int mSelectedNumber) {
-        this.mSelectedNumber = mSelectedNumber;
+    public void setSelectedNumber(int selectedNumber) {
+        this.mSelectedNumber = selectedNumber;
     }
 
 }

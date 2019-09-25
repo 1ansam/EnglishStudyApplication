@@ -23,7 +23,6 @@ import com.night.app.consts.BusinessConsts;
 import com.night.basecore.widget.recyclerview.DividerGridItemDecoration;
 import com.night.model.wrapper.baseui.CommonFunctionWrapper;
 
-
 public class HomeAccountFragment extends BaseFragment {
     private RecyclerView                      mRecycleViewFunctionGrid;
 
@@ -42,7 +41,8 @@ public class HomeAccountFragment extends BaseFragment {
     @Override
     public void initView() {
         mRecycleViewFunctionGrid = view.findViewById(R.id.home_account_recycle_view_function_grid);
-        mAccountFunctionRecyclerAdapter = new AccountFunctionRecycleViewAdapter(getContext(), BusinessConsts.getAccountFunctionWrapperList());
+        mAccountFunctionRecyclerAdapter = new AccountFunctionRecycleViewAdapter(getContext(),
+                BusinessConsts.getAccountFunctionWrapperList());
 
         mRecycleViewFunctionGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mRecycleViewFunctionGrid.setAdapter(mAccountFunctionRecyclerAdapter);
@@ -69,6 +69,8 @@ public class HomeAccountFragment extends BaseFragment {
                             break;
                         case 3:
                             intent = new Intent(getActivity(), HelpCenterActivity.class);
+                            break;
+                        default:
                             break;
                         }
                         startActivity(intent);

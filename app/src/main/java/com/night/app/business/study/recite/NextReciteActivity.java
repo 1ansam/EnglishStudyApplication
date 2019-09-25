@@ -4,19 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.night.api.consts.enums.WordEnums;
 import com.night.app.R;
 import com.night.app.base.activity.BaseActivity;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
-import com.night.app.business.study.recite.adapter.NextReciteItemRecyclerViewAdapter;
+import com.night.app.common.adapter.WordInfoRecyclerAdapter;
 import com.night.app.common.util.TitleInitUtil;
-import com.night.api.consts.enums.WordEnums;
+import com.night.app.common.util.WordDisplayUtil;
 import com.night.basecore.utils.LogUtil;
 import com.night.basecore.utils.MediaPlayerUtil;
 import com.night.basecore.widget.recyclerview.CustomLinearLayoutManager;
@@ -31,27 +31,25 @@ import java.util.List;
  * @author zhuwentao
  */
 public class NextReciteActivity extends BaseActivity {
-    private TextView                          mTvCompletedNumber;
+    private TextView                mTvCompletedNumber;
 
-    private TextView                          mTvSurplusNumber;
+    private TextView                mTvSurplusNumber;
 
-    private RecyclerView                      mRecyclerViewWordInfo;
+    private RecyclerView            mRecyclerViewWordInfo;
 
-    private Button                            mBtnRandomTest;
+    private Button                  mBtnRandomTest;
 
-    private Button                            mBtnNextRecite;
+    private Button                  mBtnNextRecite;
 
-    private CheckBox                          mCheckBoxEye;
+    private WordDisplayUtil         mWordDisplayUtil;
 
-    private CheckBox                          mCheckBoxWordPh;
+    private WordInfoRecyclerAdapter mWordInfoRecyclerAdapter;
 
-    private NextReciteItemRecyclerViewAdapter mItemRecyclerViewAdapter;
+    private List<ReciteWordWrapper> mReciteWordWrapperList;
 
-    private List<ReciteWordWrapper>           mReciteWordWrapperList;
+    private List<ReciteWordWrapper> mSureWordWrapperList;
 
-    private List<ReciteWordWrapper>           mSureWordWrapperList;
-
-    private List<ReciteWordWrapper>           mNotSureWrapperList;
+    private List<ReciteWordWrapper> mNotSureWrapperList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,8 @@ public class NextReciteActivity extends BaseActivity {
         initClick();
     }
 
-    private void initData() {
+    @Override
+    public void initData() {
         mReciteWordWrapperList = (List<ReciteWordWrapper>) getIntent().getSerializableExtra("reciteWordWrapperList");
         mSureWordWrapperList = new ArrayList<>();
         mNotSureWrapperList = new ArrayList<>();
@@ -86,13 +85,12 @@ public class NextReciteActivity extends BaseActivity {
         mRecyclerViewWordInfo = findViewById(R.id.next_recite_recycler_word_list);
         mBtnRandomTest = findViewById(R.id.next_recite_btn_random_test);
         mBtnNextRecite = findViewById(R.id.next_recite_btn_next_recite);
-        mCheckBoxEye = findViewById(R.id.next_recite_check_box_eye);
-        mCheckBoxWordPh = findViewById(R.id.next_recite_check_box_word_ph);
-        mItemRecyclerViewAdapter = new NextReciteItemRecyclerViewAdapter(this, mSureWordWrapperList);
+        mWordDisplayUtil = new WordDisplayUtil(this, false, true, true);
+        mWordInfoRecyclerAdapter = new WordInfoRecyclerAdapter(this, mSureWordWrapperList);
 
         mTvCompletedNumber.setText(String.valueOf(mSureWordWrapperList.size()));
         mTvSurplusNumber.setText(String.valueOf(mNotSureWrapperList.size()));
-        mRecyclerViewWordInfo.setAdapter(mItemRecyclerViewAdapter);
+        mRecyclerViewWordInfo.setAdapter(mWordInfoRecyclerAdapter);
         mRecyclerViewWordInfo
                 .setLayoutManager(new CustomLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerViewWordInfo.addItemDecoration(new DividerGridItemDecoration(this));
@@ -125,13 +123,13 @@ public class NextReciteActivity extends BaseActivity {
                 }
             }
         });
-        mItemRecyclerViewAdapter
+        mWordInfoRecyclerAdapter
                 .setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener<ReciteWordWrapper>() {
                     @Override
                     public void onItemClick(View view, ReciteWordWrapper reciteWordWrapper, int position) {
                         int id = view.getId();
                         switch (id) {
-                        case R.id.next_recite_iv_horn:
+                        case R.id.word_list_info_iv_horn:
                             String url = (String) view.getTag();
                             LogUtil.d(url);
                             MediaPlayerUtil.playHornAnimation(NextReciteActivity.this, (ImageView) view, url);
@@ -142,30 +140,30 @@ public class NextReciteActivity extends BaseActivity {
                     }
                 });
 
-        mCheckBoxEye.setOnClickListener(new View.OnClickListener() {
+        mWordDisplayUtil.getCheckBoxEye().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mCheckBoxEye.isChecked()) {
-                    mItemRecyclerViewAdapter.setWordTranslationVisibility(View.VISIBLE);
-                    mItemRecyclerViewAdapter.notifyDataSetChanged();
+                if (mWordDisplayUtil.getCheckBoxEye().isChecked()) {
+                    mWordInfoRecyclerAdapter.setWordTranslationVisibility(View.VISIBLE);
+                    mWordInfoRecyclerAdapter.notifyDataSetChanged();
                 } else {
-                    mItemRecyclerViewAdapter.setWordTranslationVisibility(View.GONE);
-                    mItemRecyclerViewAdapter.notifyDataSetChanged();
+                    mWordInfoRecyclerAdapter.setWordTranslationVisibility(View.GONE);
+                    mWordInfoRecyclerAdapter.notifyDataSetChanged();
                 }
             }
         });
 
-        mCheckBoxWordPh.setOnClickListener(new View.OnClickListener() {
+        mWordDisplayUtil.getCheckBoxWordPh().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mItemRecyclerViewAdapter.getWordPhType() == WordEnums.WORD_PH_EN) {
-                    mItemRecyclerViewAdapter.setWordPhType(WordEnums.WORD_PH_AM);
-                    mItemRecyclerViewAdapter.notifyDataSetChanged();
-                    mCheckBoxWordPh.setText(R.string.am);
+                if (mWordInfoRecyclerAdapter.getWordPhType() == WordEnums.WORD_PH_EN) {
+                    mWordInfoRecyclerAdapter.setWordPhType(WordEnums.WORD_PH_AM);
+                    mWordInfoRecyclerAdapter.notifyDataSetChanged();
+                    mWordDisplayUtil.getCheckBoxWordPh().setText(R.string.am);
                 } else {
-                    mItemRecyclerViewAdapter.setWordPhType(WordEnums.WORD_PH_EN);
-                    mItemRecyclerViewAdapter.notifyDataSetChanged();
-                    mCheckBoxWordPh.setText(R.string.en);
+                    mWordInfoRecyclerAdapter.setWordPhType(WordEnums.WORD_PH_EN);
+                    mWordInfoRecyclerAdapter.notifyDataSetChanged();
+                    mWordDisplayUtil.getCheckBoxWordPh().setText(R.string.en);
                 }
             }
         });

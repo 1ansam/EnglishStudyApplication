@@ -1,45 +1,51 @@
 package com.night.api.business.database;
 
 import android.content.Context;
+import android.view.View;
 
 import com.night.api.base.BaseSQLiteActionImpl;
 import com.night.api.business.util.WordUtil;
 import com.night.api.consts.enums.WordEnums;
 import com.night.basecore.utils.StringUtil;
-import com.night.model.wrapper.Common.WordWrapper;
+import com.night.model.wrapper.common.WordWrapper;
 import com.night.model.wrapper.database.WordDataBaseWrapper;
+import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
-    private static final String TABLE_NAME                   = "word";
+    private static final String TABLE_NAME                       = "word";
 
-    private static final String FIELD_WORD_NAME              = "word_name";
+    private static final String FIELD_WORD_NAME                  = "word_name";
 
-    private static final String FIELD_WORD_PH_EN             = "word_ph_en";
+    private static final String FIELD_WORD_PH_EN                 = "word_ph_en";
 
-    private static final String FIELD_WORD_PH_EN_MP3         = "word_ph_en_mp3";
+    private static final String FIELD_WORD_PH_EN_MP3             = "word_ph_en_mp3";
 
-    private static final String FIELD_WORD_PH_AM             = "word_ph_am";
+    private static final String FIELD_WORD_PH_AM                 = "word_ph_am";
 
-    private static final String FIELD_WORD_PH_AM_MP3         = "word_ph_am_mp3";
+    private static final String FIELD_WORD_PH_AM_MP3             = "word_ph_am_mp3";
 
-    private static final String FIELD_WORD_PARTS             = "word_parts";
+    private static final String FIELD_WORD_PARTS                 = "word_parts";
 
-    private static final String FIELD_WORD_MEANS             = "word_means";
+    private static final String FIELD_WORD_MEANS                 = "word_means";
 
-    private static final String FIELD_WORD_COLLECT_STATE     = "word_collect_state";
+    private static final String FIELD_WORD_COLLECT_STATE         = "word_collect_state";
 
-    private static final String INSERT_INTO_WORD             = "insert into " + TABLE_NAME + " values(?,?,?,?,?,?,?,?)";
+    private static final String INSERT_INTO_WORD                 = "insert into " + TABLE_NAME
+            + " values(?,?,?,?,?,?,?,?)";
 
-    private static final String QUERY_WORD_NAME_BY_WORD_NAME = "select " + FIELD_WORD_NAME + " from " + TABLE_NAME
+    private static final String QUERY_WORD_NAME_BY_WORD_NAME     = "select " + FIELD_WORD_NAME + " from " + TABLE_NAME
             + " where " + FIELD_WORD_NAME + "=?";
 
-    private static final String QUERY_WORD_BY_WORD_NAME      = "select * from " + TABLE_NAME + " where "
+    private static final String QUERY_WORD_BY_WORD_NAME          = "select * from " + TABLE_NAME + " where "
             + FIELD_WORD_NAME + "=?";
 
-    private static final String UPDATE_WORD_COLLECT_STATE    = "update " + TABLE_NAME + " set "
+    private static final String QUERY_WORD_BY_COLLECT_STATE = "select * from " + TABLE_NAME
+            + " where " + FIELD_WORD_COLLECT_STATE + "=?";
+
+    private static final String UPDATE_WORD_COLLECT_STATE        = "update " + TABLE_NAME + " set "
             + FIELD_WORD_COLLECT_STATE + "=? where " + FIELD_WORD_NAME + " =?";
 
     public WordActionImpl(Context context) {
@@ -82,7 +88,7 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
             database.execSQL(INSERT_INTO_WORD,
                     new Object[] { wrapper.getWordName(), wrapper.getWordPhEn(), wrapper.getWordPhEnMp3(),
                             wrapper.getWordPhAm(), wrapper.getWordPhAmMp3(), wrapper.getWordParts(),
-                            wrapper.getWordMeans(),wrapper.getWordCollectState() });
+                            wrapper.getWordMeans(), wrapper.getWordCollectState() });
             close();
         }
     }
@@ -91,7 +97,7 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
     public boolean isContainedInTable(String wordName) {
         database = openHelper.getReadableDatabase();
         database.beginTransaction();
-        cursor = database.rawQuery(QUERY_WORD_NAME_BY_WORD_NAME, new String[]{wordName});
+        cursor = database.rawQuery(QUERY_WORD_NAME_BY_WORD_NAME, new String[] { wordName });
         if (cursor.moveToNext()) {
             close();
             return true;
@@ -167,6 +173,29 @@ public class WordActionImpl extends BaseSQLiteActionImpl implements WordAction {
         database.beginTransaction();
         database.execSQL(UPDATE_WORD_COLLECT_STATE, new Object[] { wordCollectState, wordName });
         close();
+    }
+
+    @Override
+    public List<ReciteWordWrapper> getWordByState(int state) {
+        List<ReciteWordWrapper> reciteWordWrapperList = new ArrayList<>();
+        database = openHelper.getWritableDatabase();
+        database.beginTransaction();
+        cursor = database.rawQuery(QUERY_WORD_BY_COLLECT_STATE, new String[] { String.valueOf(state) });
+        while(cursor.moveToNext()){
+            String wordName = cursor.getString(getFieldIndex(FIELD_WORD_NAME));
+            String wordPhEn = cursor.getString(getFieldIndex(FIELD_WORD_PH_EN));
+            String wordPhEnMp3 = cursor.getString(getFieldIndex(FIELD_WORD_PH_EN_MP3));
+            String wordPhAm = cursor.getString(getFieldIndex(FIELD_WORD_PH_AM));
+            String wordPhAmMp3 = cursor.getString(getFieldIndex(FIELD_WORD_PH_AM_MP3));
+            String wordPart = cursor.getString(getFieldIndex(FIELD_WORD_PARTS));
+            String wordMean = cursor.getString(getFieldIndex(FIELD_WORD_MEANS));
+            int wordCollectState = cursor.getInt(getFieldIndex(FIELD_WORD_COLLECT_STATE));
+            WordWrapper wordWrapper = WordUtil.changeDataBaseWrapperToWrapper(new WordDataBaseWrapper(wordName,wordPhEn,wordPhEnMp3,wordPhAm,wordPhAmMp3,wordPart,wordMean,wordCollectState));
+            ReciteWordWrapper reciteWordWrapper= new ReciteWordWrapper(wordWrapper,null, View.GONE,WordEnums.NULL_SURE);
+            reciteWordWrapperList.add(reciteWordWrapper);
+        }
+        close();
+        return reciteWordWrapperList;
     }
 
 }

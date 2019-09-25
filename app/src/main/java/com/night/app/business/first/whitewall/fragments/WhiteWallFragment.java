@@ -67,6 +67,8 @@ public class WhiteWallFragment extends BaseFragment {
         case UserLevelEnums.USER_LEVEL_SIX:
             mIvLevel.setImageResource(R.mipmap.icon_level_six);
             break;
+        default:
+            break;
         }
         mTvUerPetName.setText(mWrapper.getUserPetName());
         mTvUserComment.setText(mWrapper.getUserComment());

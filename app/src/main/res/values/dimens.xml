@@ -41,5 +41,9 @@
     <dimen name="recite_layout_margin_veritical">12dp</dimen>
     <dimen name="recite_layout_height">32dp</dimen>
 
-
+<!--    单词展示形式布局-->
+    <dimen name="word_display_setting_width_1">60dp</dimen>
+    <dimen name="word_display_setting_width_2">120dp</dimen>
+    <dimen name="word_display_setting_width_3">180dp</dimen>
+    <dimen name="word_display_height">48dp</dimen>
 </resources>

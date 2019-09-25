@@ -16,6 +16,8 @@ import com.night.api.business.database.BookWordAction;
 import com.night.api.business.database.BookWordActionImpl;
 import com.night.api.business.database.CurrentAction;
 import com.night.api.business.database.CurrentActionImpl;
+import com.night.api.business.database.LogAction;
+import com.night.api.business.database.LogActionImpl;
 import com.night.api.business.okhttp.WordApiAction;
 import com.night.api.business.okhttp.WordApiActionImpl;
 import com.night.api.consts.MessageConsts;
@@ -28,11 +30,13 @@ import com.night.app.business.study.select.word.fragment.UnSelectedWordFragment;
 import com.night.app.common.util.ProgressUtil;
 import com.night.app.common.util.TitleInitUtil;
 import com.night.app.consts.BusinessConsts;
+import com.night.basecore.utils.DateUtil;
 import com.night.basecore.utils.NumberUtil;
 import com.night.basecore.utils.SharedPrefsUtil;
 import com.night.basecore.utils.ToastUtil;
 import com.night.basecore.widget.viewpager.tabSelectListener;
 import com.night.model.wrapper.database.BookWordWrapper;
+import com.night.model.wrapper.database.LogWrapper;
 import com.night.model.wrapper.database.WordStateWrapper;
 
 import java.util.ArrayList;
@@ -71,11 +75,13 @@ public class SelectWordActivity extends BaseActivity {
 
     private WordApiAction             mWordApiAction;
 
+    private LogAction                 mLogAction;
+
     private List<WordStateWrapper>    mUnSelectedWordStateList;
 
     private List<WordStateWrapper>    mSelectedWordStateList;
 
-    private int mRecommendNumber;
+    private int                       mRecommendNumber;
 
     public static final int           FINISH_RESULE_CODE = 1;
 
@@ -86,8 +92,33 @@ public class SelectWordActivity extends BaseActivity {
         Intent intent = getIntent();
         mBookLibraryName = intent.getStringExtra(BusinessConsts.BOOK_LIBRARY_NAME);
         mBookChineseName = intent.getStringExtra(BusinessConsts.BOOK_CHINESE_NAME);
+        initData();
         initView();
         initClick();
+    }
+
+    @Override
+    public void initData() {
+        mBookWordAction = new BookWordActionImpl(this);
+        mBookAction = new BookActionImpl(this);
+        mCurrentAction = new CurrentActionImpl(this);
+        mWordApiAction = new WordApiActionImpl(this);
+        mLogAction = new LogActionImpl(this);
+
+        BookWordWrapper bookWordWrapper = mBookWordAction.getBookWordWrapper(mBookLibraryName);
+        mUnSelectedWordStateList = bookWordWrapper.getUnSelectedWordList();
+        mSelectedWordStateList = bookWordWrapper.getSelectedWordList();
+        mUnSelectedWordFragment = new UnSelectedWordFragment(mUnSelectedWordStateList);
+        mSelectedWordFragment = new SelectedWordFragment(mSelectedWordStateList);
+
+        LogWrapper logWrapper = mLogAction.getLogWrapper(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number));
+        int logNumber = logWrapper.getNewNumber() + logWrapper.getReviseNumber();
+        int reciteNumber = mCurrentAction.getCurrentRecite(Integer.MAX_VALUE).size();
+        mRecommendNumber = SharedPrefsUtil.getInt(this, SharePreferenceConsts.DAY_TARGET_NUMBER, 50) - logNumber
+                - reciteNumber;
+        if (mRecommendNumber < 0) {
+            mRecommendNumber = 0;
+        }
     }
 
     @Override
@@ -100,23 +131,9 @@ public class SelectWordActivity extends BaseActivity {
         mLayoutCommit = findViewById(R.id.select_word_layout_commit);
         mTvSelectedNumber = findViewById(R.id.select_word_tv_selected_number);
         mTvRecommendNumber = findViewById(R.id.select_word_tv_recommend_number);
-
-        mBookWordAction = new BookWordActionImpl(this);
-        mBookAction = new BookActionImpl(this);
-        mCurrentAction = new CurrentActionImpl(this);
-        mWordApiAction = new WordApiActionImpl(this);
-
-        BookWordWrapper bookWordWrapper = mBookWordAction.getBookWordWrapper(mBookLibraryName);
-        mUnSelectedWordStateList = bookWordWrapper.getUnSelectedWordList();
-        mSelectedWordStateList = bookWordWrapper.getSelectedWordList();
-        mUnSelectedWordFragment = new UnSelectedWordFragment(mUnSelectedWordStateList);
-        mSelectedWordFragment = new SelectedWordFragment(mSelectedWordStateList);
-//        mRecommendNumber=SharedPrefsUtil.getInt(this,SharePreferenceConsts.DAY_TARGET_NUMBER,50)-mCurrentAction.getCurrentRecite()
         initTab();
         initPager();
-
-
-
+        mTvRecommendNumber.setText(String.valueOf("建议选" + mRecommendNumber));
     }
 
     @Override
@@ -125,29 +142,26 @@ public class SelectWordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 clearWordState();
-                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER,
-                        50);
-                for (int i = 0; i < dayTargetNumber; i++) {
+                for (int i = 0; i < mRecommendNumber; i++) {
                     mUnSelectedWordStateList.get(i).setSelected(true);
                 }
-                mUnSelectedWordFragment.getmRecyclerAdapter().refresh(mUnSelectedWordStateList);
-                mTvSelectedNumber.setText("已选" + dayTargetNumber);
-                mUnSelectedWordFragment.setmSelectedNumber(dayTargetNumber);
+                mUnSelectedWordFragment.getRecyclerAdapter().refresh(mUnSelectedWordStateList);
+                mTvSelectedNumber.setText("已选" + mRecommendNumber);
+                mUnSelectedWordFragment.setSelectedNumber(mRecommendNumber);
             }
         });
+
         mLayoutRandomSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clearWordState();
-                int dayTargetNumber = SharedPrefsUtil.getInt(getBaseContext(), SharePreferenceConsts.DAY_TARGET_NUMBER,
-                        50);
-                List<Integer> list = NumberUtil.getRandomList(0, mUnSelectedWordStateList.size(), dayTargetNumber);
+                List<Integer> list = NumberUtil.getRandomList(0, mUnSelectedWordStateList.size(), mRecommendNumber);
                 for (int i = 0; i < list.size(); i++) {
                     mUnSelectedWordStateList.get(list.get(i)).setSelected(true);
                 }
-                mUnSelectedWordFragment.getmRecyclerAdapter().refresh(mUnSelectedWordStateList);
-                mTvSelectedNumber.setText("已选" + dayTargetNumber);
-                mUnSelectedWordFragment.setmSelectedNumber(dayTargetNumber);
+                mUnSelectedWordFragment.getRecyclerAdapter().refresh(mUnSelectedWordStateList);
+                mTvSelectedNumber.setText("已选" + mRecommendNumber);
+                mUnSelectedWordFragment.setSelectedNumber(mRecommendNumber);
             }
         });
         mLayoutCommit.setOnClickListener(new View.OnClickListener() {

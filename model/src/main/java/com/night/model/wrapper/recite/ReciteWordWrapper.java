@@ -1,7 +1,7 @@
 package com.night.model.wrapper.recite;
 
 import com.night.model.wrapper.database.CurrentWrapper;
-import com.night.model.wrapper.Common.WordWrapper;
+import com.night.model.wrapper.common.WordWrapper;
 
 import java.io.Serializable;
 

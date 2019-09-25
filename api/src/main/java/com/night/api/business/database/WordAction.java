@@ -1,7 +1,8 @@
 package com.night.api.business.database;
 
-import com.night.model.wrapper.Common.WordWrapper;
+import com.night.model.wrapper.common.WordWrapper;
 import com.night.model.wrapper.database.WordDataBaseWrapper;
+import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 import java.util.List;
 
@@ -53,5 +54,13 @@ public interface WordAction {
      * @param wordCollectState
      */
     void updateWordCollectState(String wordName,int wordCollectState);
+
+    /**
+     * 根据单词是否被收藏状态来获取对应单词数据
+     * @param state
+     * @return
+     */
+    List<ReciteWordWrapper> getWordByState(int state);
+
 
 }

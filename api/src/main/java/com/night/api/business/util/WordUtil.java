@@ -6,8 +6,8 @@ import com.night.basecore.utils.DateUtil;
 import com.night.basecore.utils.StringUtil;
 import com.night.model.entity.WordEntity;
 import com.night.model.wrapper.database.CurrentWrapper;
-import com.night.model.wrapper.Common.WordTranslationWrapper;
-import com.night.model.wrapper.Common.WordWrapper;
+import com.night.model.wrapper.common.WordTranslationWrapper;
+import com.night.model.wrapper.common.WordWrapper;
 import com.night.model.wrapper.database.WordDataBaseWrapper;
 
 import java.util.ArrayList;

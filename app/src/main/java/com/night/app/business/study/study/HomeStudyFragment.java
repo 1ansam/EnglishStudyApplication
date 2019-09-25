@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.night.app.R;
+import com.night.app.business.study.mybook.MyBookActivity;
 import com.night.app.business.study.query.QueryWordActivity;
 import com.night.app.business.study.recite.ReciteActivity;
 import com.night.app.business.study.select.book.SelectBookActivity;
@@ -40,7 +41,8 @@ public class HomeStudyFragment extends BaseFragment {
     @Override
     public void initView() {
         mRecycleViewFunctionGrid = view.findViewById(R.id.home_study_recycle_view_function_grid);
-        mStudyFunctionRecycleViewAdapter=new StudyFunctionRecycleViewAdapter(getContext(), BusinessConsts.getStudyFunctionWrapperList());
+        mStudyFunctionRecycleViewAdapter = new StudyFunctionRecycleViewAdapter(getContext(),
+                BusinessConsts.getStudyFunctionWrapperList());
 
         mRecycleViewFunctionGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mRecycleViewFunctionGrid.setAdapter(mStudyFunctionRecycleViewAdapter);
@@ -54,16 +56,21 @@ public class HomeStudyFragment extends BaseFragment {
                     @Override
                     public void onItemClick(View view, CommonFunctionWrapper commonFunctionWrapper, int position) {
                         Intent intent = null;
-                        switch (position) {
-                            case 0:
-                                intent = new Intent(getActivity(), ReciteActivity.class);
-                                break;
-                            case 1:
-                                intent = new Intent(getActivity(), SelectBookActivity.class);
-                                break;
-                            case 2:
-                                intent = new Intent(getActivity(), QueryWordActivity.class);
-                                break;
+                        switch (commonFunctionWrapper.getTitleNameId()) {
+                        case R.string.study_function_recite:
+                            intent = new Intent(getActivity(), ReciteActivity.class);
+                            break;
+                        case R.string.study_function_select_word:
+                            intent = new Intent(getActivity(), SelectBookActivity.class);
+                            break;
+                        case R.string.study_function_query_word:
+                            intent = new Intent(getActivity(), QueryWordActivity.class);
+                            break;
+                        case R.string.study_function_my_word_book:
+                            intent = new Intent(getActivity(), MyBookActivity.class);
+                            break;
+                        default:
+                            break;
                         }
                         if (intent != null) {
                             startActivity(intent);

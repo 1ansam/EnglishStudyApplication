@@ -7,8 +7,16 @@ import androidx.fragment.app.Fragment;
 public abstract class BaseFragment extends Fragment {
     public View view;
 
-    public abstract void initView();
+    public void initData(){
 
-    public abstract void initClick();
+    };
+
+    public void initView(){
+
+    };
+
+    public void initClick(){
+
+    };
 
 }

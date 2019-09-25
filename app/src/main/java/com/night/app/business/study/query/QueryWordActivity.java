@@ -12,6 +12,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.night.api.business.database.BookAction;
+import com.night.api.business.database.BookActionImpl;
+import com.night.api.business.database.BookWordAction;
+import com.night.api.business.database.BookWordActionImpl;
 import com.night.api.business.database.CurrentAction;
 import com.night.api.business.database.CurrentActionImpl;
 import com.night.api.business.database.WordAction;
@@ -33,7 +37,7 @@ import com.night.basecore.utils.StyleUtil;
 import com.night.basecore.utils.ToastUtil;
 import com.night.basecore.widget.recyclerview.CustomLinearLayoutManager;
 import com.night.model.entity.WordEntity;
-import com.night.model.wrapper.Common.WordWrapper;
+import com.night.model.wrapper.common.WordWrapper;
 import com.night.model.wrapper.database.WordDataBaseWrapper;
 
 public class QueryWordActivity extends BaseActivity {
@@ -71,12 +75,26 @@ public class QueryWordActivity extends BaseActivity {
 
     private CurrentAction                  mCurrentAction;
 
+    private BookWordAction                 mBookWordAction;
+
+    private BookAction                     mBookAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_word);
+        initData();
         initView();
         initClick();
+    }
+
+    @Override
+    public void initData() {
+        mWordAction = new WordActionImpl(this);
+        mWordApiAction = new WordApiActionImpl(this);
+        mCurrentAction = new CurrentActionImpl(this);
+        mBookWordAction = new BookWordActionImpl(this);
+        mBookAction = new BookActionImpl(this);
     }
 
     @Override
@@ -86,24 +104,54 @@ public class QueryWordActivity extends BaseActivity {
         mIvClearEditText = findViewById(R.id.query_word_iv_clear_edit_text);
         mBtnQuery = findViewById(R.id.query_word_btn_query);
         mViewWordInfo = findViewById(R.id.query_word_layout_word_info);
-        mTvWordName = findViewById(R.id.word_tv_name);
-        mTvWordPhEn = findViewById(R.id.word_tv_ph_en);
-        mTvWordPhAm = findViewById(R.id.word_tv_ph_am);
-        mIvWordPhEnMp3 = findViewById(R.id.word_iv_ph_en_mp3);
-        mIvWordPhAmMp3 = findViewById(R.id.word_iv_ph_am_mp3);
-        mRecyclerWordTranslation = findViewById(R.id.word_recycler_view_translation);
+        mTvWordName = findViewById(R.id.word_pager_info_tv_name);
+        mTvWordPhEn = findViewById(R.id.word_pager_info_tv_ph_en);
+        mTvWordPhAm = findViewById(R.id.word_pager_info_tv_ph_am);
+        mIvWordPhEnMp3 = findViewById(R.id.word_pager_info_ph_en_mp3);
+        mIvWordPhAmMp3 = findViewById(R.id.word_pager_info_iv_ph_am_mp3);
+        mRecyclerWordTranslation = findViewById(R.id.word_pager_info_recycler_view_translation);
         mRecyclerWordTranslation.setVisibility(View.VISIBLE);
         mRecyclerWordTranslation
                 .setLayoutManager(new CustomLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mBtnAddToCollect = findViewById(R.id.query_word_btn_add_to_collect);
         mBtnAddToRecite = findViewById(R.id.query_word_btn_add_to_recite);
-        mWordAction = new WordActionImpl(this);
-        mWordApiAction = new WordApiActionImpl(this);
-        mCurrentAction = new CurrentActionImpl(this);
+
     }
 
     @Override
     public void initClick() {
+        topBarClickListener();
+        wordPhListener();
+
+        mBtnAddToCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mWordAction.updateWordCollectState(mWordWrapper.getWordName(), WordEnums.COLLECTED);
+                mBtnAddToCollect.setVisibility(View.GONE);
+            }
+        });
+
+        mBtnAddToRecite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 更新bookWord
+                mBookWordAction.updateBookWordState(ListUtil.getStringList(mWordWrapper.getWordName()),
+                        BookWordActionImpl.WORD_STATE_SELECYED);
+                // 更新book
+                mBookAction.updateWordSelectedNumber(
+                        mBookWordAction.getWordExistInBookNumber(ListUtil.getStringList(mWordWrapper.getWordName())));
+                // 更新current
+                mCurrentAction.insertIntoCurrent(ListUtil.getStringList(mWordWrapper.getWordName()));
+                mBtnAddToRecite.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    /**
+     * 包括输入文本框、查询按钮、清空按钮监听
+     */
+    private void topBarClickListener() {
         mEtQuery.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -174,6 +222,12 @@ public class QueryWordActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    /**
+     * 关于单词发音按钮的监听
+     */
+    private void wordPhListener() {
         mIvWordPhEnMp3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,25 +243,12 @@ public class QueryWordActivity extends BaseActivity {
                 MediaPlayerUtil.playHornAnimation(getBaseContext(), mIvWordPhAmMp3, mp3Url);
             }
         });
-
-        mBtnAddToCollect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mWordAction.updateWordCollectState(mWordWrapper.getWordName(), WordEnums.COLLECTED);
-                mBtnAddToCollect.setVisibility(View.GONE);
-            }
-        });
-
-        mBtnAddToRecite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrentAction.insertIntoCurrent(ListUtil.getStringList(mWordWrapper.getWordName()));
-                mBtnAddToRecite.setVisibility(View.GONE);
-            }
-        });
-
     }
 
+    /**
+     * 设置单词信息是否显示
+     * @param visibility
+     */
     private void showWordInfo(int visibility) {
         boolean isRecited = mCurrentAction.isContainedInTable(mWordWrapper.getWordName());
         if (View.VISIBLE == visibility) {

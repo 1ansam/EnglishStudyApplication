@@ -13,14 +13,14 @@ import com.night.api.business.database.WordActionImpl;
 import com.night.api.business.util.WordUtil;
 import com.night.app.R;
 import com.night.app.base.activity.BaseActivity;
-import com.night.app.business.study.recite.adapter.ReciteViewPagerAdapter;
+import com.night.app.common.adapter.WordInfoViewPagerAdapter;
 import com.night.app.common.util.TitleInitUtil;
 import com.night.api.consts.SharePreferenceConsts;
 import com.night.api.consts.enums.WordEnums;
 import com.night.basecore.utils.SharedPrefsUtil;
 import com.night.basecore.widget.viewpager.ZoomOutPagerTransformer;
 import com.night.model.wrapper.database.CurrentWrapper;
-import com.night.model.wrapper.Common.WordWrapper;
+import com.night.model.wrapper.common.WordWrapper;
 import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 import java.io.Serializable;
@@ -28,17 +28,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReciteActivity extends BaseActivity {
-    private ViewPager               mViewPager;
+    private ViewPager                mViewPagerWordInfo;
 
-    private ReciteViewPagerAdapter  mViewPagerAdapter;
+    private WordInfoViewPagerAdapter mWordInfoViewPagerAdapter;
 
-    private CurrentAction           mCurrentAction;
+    private CurrentAction            mCurrentAction;
 
-    private WordAction              mWordAction;
+    private WordAction               mWordAction;
 
-    private List<CurrentWrapper>    mCurrentWrapperList;
+    private List<CurrentWrapper>     mCurrentWrapperList;
 
-    private List<ReciteWordWrapper> mReciteWordWrapperList;
+    private List<ReciteWordWrapper>  mReciteWordWrapperList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,8 @@ public class ReciteActivity extends BaseActivity {
         if (mReciteWordWrapperList == null) {
             mCurrentWrapperList = mCurrentAction
                     .getCurrentRecite(SharedPrefsUtil.getInt(this, SharePreferenceConsts.DAY_TARGET_NUMBER, 50));
-            List<WordWrapper> wordWrapperList = mWordAction.getWordByName(WordUtil.getWordNameListFromCurrentWrapper(mCurrentWrapperList));
+            List<WordWrapper> wordWrapperList = mWordAction
+                    .getWordByName(WordUtil.getWordNameListFromCurrentWrapper(mCurrentWrapperList));
             setReciteWordWrapperListData(wordWrapperList);
         }
     }
@@ -64,13 +65,13 @@ public class ReciteActivity extends BaseActivity {
     @Override
     public void initView() {
         TitleInitUtil.initTitle(this, R.string.study_function_recite);
-        mViewPager = findViewById(R.id.recite_view_pager);
-        mViewPagerAdapter = new ReciteViewPagerAdapter(getSupportFragmentManager(), mReciteWordWrapperList);
-        mViewPagerAdapter.setNextFragmentItem(new ReciteViewPagerAdapter.ViewPagerNextFragmentItem() {
+        mViewPagerWordInfo = findViewById(R.id.recite_view_pager_word_info);
+        mWordInfoViewPagerAdapter = new WordInfoViewPagerAdapter(getSupportFragmentManager(), mReciteWordWrapperList);
+        mWordInfoViewPagerAdapter.setNextFragmentItem(new WordInfoViewPagerAdapter.ViewPagerNextFragmentItem() {
             @Override
             public void nextItem(int position) {
                 if (position != mReciteWordWrapperList.size() - 1) {
-                    mViewPager.setCurrentItem(position + 1, true);
+                    mViewPagerWordInfo.setCurrentItem(position + 1, true);
                 } else {
                     Intent intent = new Intent(ReciteActivity.this, NextReciteActivity.class);
                     Bundle bundle = new Bundle();
@@ -81,10 +82,10 @@ public class ReciteActivity extends BaseActivity {
                 }
             }
         });
-        mViewPager.setAdapter(mViewPagerAdapter);
-        mViewPager.setOffscreenPageLimit(2);
-        mViewPager.setPageMargin(10);
-        mViewPager.setPageTransformer(true, new ZoomOutPagerTransformer());
+        mViewPagerWordInfo.setAdapter(mWordInfoViewPagerAdapter);
+        mViewPagerWordInfo.setOffscreenPageLimit(2);
+        mViewPagerWordInfo.setPageMargin(10);
+        mViewPagerWordInfo.setPageTransformer(true, new ZoomOutPagerTransformer());
     }
 
     @Override
@@ -95,7 +96,8 @@ public class ReciteActivity extends BaseActivity {
     private void setReciteWordWrapperListData(List<WordWrapper> wordWrapperList) {
         mReciteWordWrapperList = new ArrayList<>();
         for (int i = 0; i < wordWrapperList.size(); i++) {
-            ReciteWordWrapper wrapper = new ReciteWordWrapper(wordWrapperList.get(i),mCurrentWrapperList.get(i), View.GONE, WordEnums.NULL_SURE);
+            ReciteWordWrapper wrapper = new ReciteWordWrapper(wordWrapperList.get(i), mCurrentWrapperList.get(i),
+                    View.GONE, WordEnums.NULL_SURE);
             mReciteWordWrapperList.add(wrapper);
         }
     }

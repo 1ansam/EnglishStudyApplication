@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_circular_black_80"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/word_display_setting_layout_display_style"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/word_display_setting_check_box_display_style"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/display_style_selector"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/word_display_setting_first_line"
+        layout="@layout/line_vertical_white"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/word_display_setting_layout_eye"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/word_display_setting_check_box_eye"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/eye_white_selector"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/word_display_setting_second_line"
+        layout="@layout/line_vertical_white"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/word_display_setting_layout_word_ph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/word_display_setting_check_box_word_ph"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="@string/en"
+            android:textSize="@dimen/text_size_20" />
+    </LinearLayout>
+
+</LinearLayout>

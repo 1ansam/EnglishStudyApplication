@@ -1,4 +1,4 @@
-package com.night.model.wrapper.Common;
+package com.night.model.wrapper.common;
 
 import java.io.Serializable;
 

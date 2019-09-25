@@ -54,7 +54,7 @@
 
         <include
             android:id="@+id/query_word_layout_word_info"
-            layout="@layout/item_vertical_word_info"
+            layout="@layout/item_word_pager_info_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/query_word_layout_top_bar"
