@@ -207,12 +207,20 @@ public class WordInfoFragment extends BaseFragment {
                 public void onClick(View view) {
                     mIvSureState.setVisibility(View.VISIBLE);
                     mIvSureState.setImageResource(R.mipmap.icon_flower_bad);
-                    mReciteWordWrapper.setWordReciteState(WordEnums.NOT_SURE);
-                    if (mNextFragmentItem != null) {
-                        mNextFragmentItem.nextItem();
+
+                    // 在之前已经点击确定的情况下再次点击不确定,需要回退Log表数据,同时更新current;
+                    // 在之前没有任何点击的情况下点击不确定,需要更新current
+                    // 在之前已经点击不确定的情况下点击不确定,什么都不需要做
+                    if (mReciteWordWrapper.getWordReciteState() == WordEnums.SURE) {
+                        reciteButtonAction(false);
+                    } else if (mReciteWordWrapper.getWordReciteState() == WordEnums.NULL_SURE) {
+                        mCurrentAction.updateCurrentState(mReciteWordWrapper.getCurrentWrapper().getWordName(),
+                                WordEnums.STATE_ING);
+                        mReciteWordWrapper.setWordReciteState(WordEnums.NOT_SURE);
+                        if (mNextFragmentItem != null) {
+                            mNextFragmentItem.nextItem();
+                        }
                     }
-                    mCurrentAction.updateCurrentState(mReciteWordWrapper.getCurrentWrapper().getWordName(),
-                            WordEnums.STATE_ING);
                 }
             });
 
@@ -221,29 +229,56 @@ public class WordInfoFragment extends BaseFragment {
                 public void onClick(View view) {
                     mIvSureState.setVisibility(View.VISIBLE);
                     mIvSureState.setImageResource(R.mipmap.icon_flower_good);
-                    mReciteWordWrapper.setWordReciteState(WordEnums.SURE);
-                    if (mNextFragmentItem != null) {
-                        mNextFragmentItem.nextItem();
+                    // 在之前没有点击确定的情况下点击确定,需要向数据库表写入数据;在已经点击确定的情况下什么也不用做
+                    if (mReciteWordWrapper.getWordReciteState() != WordEnums.SURE) {
+                        reciteButtonAction(true);
                     }
-                    CurrentWrapper currentWrapper = mReciteWordWrapper.getCurrentWrapper();
-                    int expectedNextDate = WordUtil.getEexpectedNextDate(currentWrapper);
-                    if (expectedNextDate == 0 || expectedNextDate == -1) {
-                        mCurrentAction.updateCurrentEnd(currentWrapper.getWordName());
-                    } else {
-                        mCurrentAction.updateCurrentNextDate(currentWrapper.getWordName(), expectedNextDate,
-                                WordEnums.STATE_ING);
-                    }
-                    LogWrapper logWrapper = mLogAction
-                            .getLogWrapper(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number));
-
-                    if (expectedNextDate == 0) {
-                        logWrapper.setNewNumber(logWrapper.getNewNumber() + 1);
-                    } else {
-                        logWrapper.setReviseNumber(logWrapper.getReviseNumber() + 1);
-                    }
-                    mLogAction.updateLogWrapper(logWrapper);
                 }
             });
+        }
+    }
+
+    /**
+     * 对确定与不确定按钮的动作执行
+     * @param isSure
+     */
+    private void reciteButtonAction(boolean isSure) {
+        CurrentWrapper currentWrapper = mReciteWordWrapper.getCurrentWrapper();
+        LogWrapper logWrapper = mLogAction.getLogWrapper(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number));
+        int expectedNextDate = WordUtil.getEexpectedNextDate(currentWrapper);
+
+        int logChangeNumber;
+        if (isSure) {
+            // 更新current表
+            if (expectedNextDate == 0 || expectedNextDate == -1) {
+                mCurrentAction.updateCurrentEnd(currentWrapper.getWordName());
+            } else {
+                mCurrentAction.updateCurrentNextDate(currentWrapper.getWordName(), expectedNextDate,
+                        WordEnums.STATE_ING);
+            }
+            logChangeNumber = 1;
+        } else {
+            // current表实现不确定下的更新
+            mCurrentAction.updateCurrentState(mReciteWordWrapper.getCurrentWrapper().getWordName(),
+                    WordEnums.STATE_ING);
+            logChangeNumber = -1;
+        }
+
+        // 更新log表
+        if (expectedNextDate == 0) {
+            logWrapper.setNewNumber(logWrapper.getNewNumber() + logChangeNumber);
+        } else {
+            logWrapper.setReviseNumber(logWrapper.getReviseNumber() + logChangeNumber);
+        }
+        mLogAction.updateLogWrapper(logWrapper);
+        if (isSure) {
+            mReciteWordWrapper.setWordReciteState(WordEnums.SURE);
+        } else {
+            mReciteWordWrapper.setWordReciteState(WordEnums.NOT_SURE);
+        }
+        // 页面或者viewPager跳转
+        if (mNextFragmentItem != null) {
+            mNextFragmentItem.nextItem();
         }
     }
 

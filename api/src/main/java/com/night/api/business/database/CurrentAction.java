@@ -38,6 +38,12 @@ public interface CurrentAction {
     void updateCurrentState(String wordName, int state);
 
     /**
+     * 更新单词数据
+     * @param wrapper
+     */
+    void updateCurrent(CurrentWrapper wrapper);
+
+    /**
      * 单词集合是否在表中存在
      * @param wordNameList
      * @return

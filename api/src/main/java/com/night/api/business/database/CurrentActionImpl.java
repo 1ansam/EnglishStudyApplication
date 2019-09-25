@@ -26,8 +26,11 @@ public class CurrentActionImpl extends BaseSQLiteActionImpl implements CurrentAc
     private static final String INSERT_INTO_CURRENT      = "insert into " + TABLE_NAME + "(" + FIELD_WORD_NAME + ","
             + FIELD_FIRST_DATE + ") values(?,?)";
 
-    private static final String QUERY_CURRENT_BY_STATE = "select * from " + TABLE_NAME + " where " + FIELD_STATE
+    private static final String QUERY_CURRENT_BY_STATE   = "select * from " + TABLE_NAME + " where " + FIELD_STATE
             + "!=?";
+
+    private static final String QUERY_CURRENT_BY_NAME    = "select * from " + TABLE_NAME + " where " + FIELD_WORD_NAME
+            + "=?";
 
     private static final String UPDATE_CURRENT_NEXT_DATE = "update " + TABLE_NAME + " set " + FIELD_NEXT_DATE + "=?,"
             + FIELD_STATE + "=? where " + FIELD_WORD_NAME + "=?";
@@ -38,7 +41,8 @@ public class CurrentActionImpl extends BaseSQLiteActionImpl implements CurrentAc
     private static final String UPDATE_CURRENT_STATE     = "update " + TABLE_NAME + " set " + FIELD_STATE + "=? where "
             + FIELD_WORD_NAME + "=?";
 
-    private static final String QUERY_CURRENT_BY_NAME="select * from "+TABLE_NAME+" where "+FIELD_WORD_NAME+"=?";
+    private static final String UPDATE_CURRENT           = "update " + TABLE_NAME + " set " + FIELD_FIRST_DATE + "=?,"
+            + FIELD_NEXT_DATE + "=?," + FIELD_END_DATE + "=?," + FIELD_STATE + "=? where " + FIELD_WORD_NAME + "=?";
 
     public CurrentActionImpl(Context context) {
         super(context);
@@ -46,13 +50,13 @@ public class CurrentActionImpl extends BaseSQLiteActionImpl implements CurrentAc
 
     @Override
     public void insertIntoCurrent(List<String> wordNameList) {
-        List<Boolean> booleanList =isContainedInTable(wordNameList);
+        List<Boolean> booleanList = isContainedInTable(wordNameList);
 
         database = openHelper.getWritableDatabase();
         database.beginTransaction();
         String currentDate = DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number);
         for (int i = 0; i < wordNameList.size(); i++) {
-            if(booleanList.get(i)){
+            if (booleanList.get(i)) {
                 continue;
             }
             database.execSQL(INSERT_INTO_CURRENT, new Object[] { wordNameList.get(i), Integer.valueOf(currentDate) });
@@ -99,8 +103,7 @@ public class CurrentActionImpl extends BaseSQLiteActionImpl implements CurrentAc
         int currentDate = Integer.valueOf(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number));
         database = openHelper.getWritableDatabase();
         database.beginTransaction();
-        database.execSQL(UPDATE_CURRENT_END_DATE,
-                new Object[] { null, currentDate, WordEnums.STATE_END,wordName });
+        database.execSQL(UPDATE_CURRENT_END_DATE, new Object[] { null, currentDate, WordEnums.STATE_END, wordName });
         close();
     }
 
@@ -109,6 +112,15 @@ public class CurrentActionImpl extends BaseSQLiteActionImpl implements CurrentAc
         database = openHelper.getWritableDatabase();
         database.beginTransaction();
         database.execSQL(UPDATE_CURRENT_STATE, new Object[] { state, wordName });
+        close();
+    }
+
+    @Override
+    public void updateCurrent(CurrentWrapper wrapper) {
+        database = openHelper.getWritableDatabase();
+        database.beginTransaction();
+        database.execSQL(UPDATE_CURRENT, new Object[] { wrapper.getFirstDate(), wrapper.getNextDate(),
+                wrapper.getEndDate(), wrapper.getState(), wrapper.getWordName() });
         close();
     }
 
@@ -135,7 +147,7 @@ public class CurrentActionImpl extends BaseSQLiteActionImpl implements CurrentAc
     public boolean isContainedInTable(String wordName) {
         database = openHelper.getReadableDatabase();
         database.beginTransaction();
-        cursor = database.rawQuery(QUERY_CURRENT_BY_NAME, new String[]{wordName});
+        cursor = database.rawQuery(QUERY_CURRENT_BY_NAME, new String[] { wordName });
         if (cursor.moveToNext()) {
             close();
             return true;
