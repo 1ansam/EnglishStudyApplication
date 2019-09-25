@@ -28,7 +28,7 @@ public class WordUtil {
         // 在间隔的天数下下一次应该显示该单词的时间
         int expectedNextDate;
         // 当nextDate为空时，表示当前单词为第一次背记
-        // 相隔周期 1 2 4 7 15 30
+        // 记忆周期 1 2 4 7 15 30 60 100 180
         if (nextDate == 0) {
             if (wrapper.getState() == WordEnums.STATE_FIRST) {
                 return 0;
@@ -38,21 +38,35 @@ public class WordUtil {
         } else {
             switch (nextDate - firstDate) {
             case 1:
+                // 记忆周期2-4
                 expectedDayAfterNumber = 3;
                 break;
             case 3:
-                expectedDayAfterNumber = 7;
+                // 记忆周期4-7
+                expectedDayAfterNumber = 6;
                 break;
-            case 7:
+            case 6:
+                // 记忆周期7-15
                 expectedDayAfterNumber = 14;
                 break;
             case 14:
+                // 记忆周期15-30
                 expectedDayAfterNumber = 29;
                 break;
             case 29:
+                // 记忆周期30-60
                 expectedDayAfterNumber = 59;
                 break;
             case 59:
+                // 记忆周期60-100
+                expectedDayAfterNumber = 99;
+                break;
+            case 99:
+                // 记忆周期100-180
+                expectedDayAfterNumber = 179;
+                break;
+            case 179:
+                // 记忆周期180-结束
                 return -1;
             default:
                 break;
@@ -185,9 +199,9 @@ public class WordUtil {
         return nameList;
     }
 
-    public static List<String> getWordNameListFromCurrentWrapper(List<CurrentWrapper> list){
+    public static List<String> getWordNameListFromCurrentWrapper(List<CurrentWrapper> list) {
         List<String> nameList = new ArrayList<>();
-        for(int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             nameList.add(list.get(i).getWordName());
         }
         return nameList;
