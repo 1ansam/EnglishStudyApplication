@@ -16,7 +16,7 @@ import java.util.List;
 public class WordUtil {
 
     /**
-     * 当返回值为0时，说明该单词应该走向结束状态,返回值为0分为两种情况：一：第一次背记被确定；二：该单词走完整个背记周期；当返回值不为0时，说明该单词应该走向背记状态
+     * 当返回值为0或者-1时，说明该单词应该走向结束状态;0 第一次背记被确定；-1 该单词走完整个背记周期；当返回值不为0时，说明该单词应该走向背记状态
      * @param wrapper
      * @return
      */
@@ -53,7 +53,7 @@ public class WordUtil {
                 expectedDayAfterNumber = 59;
                 break;
             case 59:
-                return 0;
+                return -1;
             default:
                 break;
             }

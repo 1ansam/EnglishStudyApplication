@@ -32,5 +32,11 @@ public interface LogAction {
      */
     void update(String date,int number,String field);
 
+    /**
+     *更新对应数据
+     * @param wrapper
+     */
+    void updateLogWrapper(LogWrapper wrapper);
+
 
 }

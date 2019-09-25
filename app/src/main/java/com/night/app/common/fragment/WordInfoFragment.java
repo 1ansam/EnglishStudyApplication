@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.night.api.business.database.CurrentAction;
 import com.night.api.business.database.CurrentActionImpl;
+import com.night.api.business.database.LogAction;
+import com.night.api.business.database.LogActionImpl;
 import com.night.api.business.database.WordAction;
 import com.night.api.business.database.WordActionImpl;
 import com.night.api.business.util.WordUtil;
@@ -23,11 +25,12 @@ import com.night.api.consts.enums.WordEnums;
 import com.night.app.R;
 import com.night.app.base.fragment.BaseFragment;
 import com.night.app.common.adapter.WordTranslationRecyclerAdapter;
-import com.night.basecore.utils.LogUtil;
+import com.night.basecore.utils.DateUtil;
 import com.night.basecore.utils.MediaPlayerUtil;
 import com.night.basecore.utils.StyleUtil;
 import com.night.basecore.widget.recyclerview.CustomLinearLayoutManager;
 import com.night.model.wrapper.database.CurrentWrapper;
+import com.night.model.wrapper.database.LogWrapper;
 import com.night.model.wrapper.recite.ReciteWordWrapper;
 
 /**
@@ -68,6 +71,8 @@ public class WordInfoFragment extends BaseFragment {
 
     private CurrentAction                    mCurrentAction;
 
+    private LogAction                        mLogAction;
+
     private FragmentNextFragmentItemListener mNextFragmentItem;
 
     /**
@@ -104,6 +109,7 @@ public class WordInfoFragment extends BaseFragment {
     public void initData() {
         mWordAction = new WordActionImpl(getContext());
         mCurrentAction = new CurrentActionImpl(getContext());
+        mLogAction = new LogActionImpl(getContext());
     }
 
     @Override
@@ -131,9 +137,9 @@ public class WordInfoFragment extends BaseFragment {
         mIvWordPhAmMp3.setTag(mReciteWordWrapper.getWordWrapper().getWordPhAmMp3());
 
         mRecyclerViewWordTranslation.setVisibility(mReciteWordWrapper.getTranslationVisibilityState());
-        if(mReciteWordWrapper.getTranslationVisibilityState()==View.VISIBLE){
+        if (mReciteWordWrapper.getTranslationVisibilityState() == View.VISIBLE) {
             mIvEye.setImageResource(R.mipmap.icon_eye_open);
-        }else{
+        } else {
             mIvEye.setImageResource(R.mipmap.icon_eye_close_light_gray);
         }
     }
@@ -221,12 +227,21 @@ public class WordInfoFragment extends BaseFragment {
                     }
                     CurrentWrapper currentWrapper = mReciteWordWrapper.getCurrentWrapper();
                     int expectedNextDate = WordUtil.getEexpectedNextDate(currentWrapper);
-                    if (expectedNextDate == 0) {
+                    if (expectedNextDate == 0 || expectedNextDate == -1) {
                         mCurrentAction.updateCurrentEnd(currentWrapper.getWordName());
                     } else {
                         mCurrentAction.updateCurrentNextDate(currentWrapper.getWordName(), expectedNextDate,
                                 WordEnums.STATE_ING);
                     }
+                    LogWrapper logWrapper = mLogAction
+                            .getLogWrapper(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number));
+
+                    if (expectedNextDate == 0) {
+                        logWrapper.setNewNumber(logWrapper.getNewNumber() + 1);
+                    } else {
+                        logWrapper.setReviseNumber(logWrapper.getReviseNumber() + 1);
+                    }
+                    mLogAction.updateLogWrapper(logWrapper);
                 }
             });
         }
@@ -280,7 +295,6 @@ public class WordInfoFragment extends BaseFragment {
      * 点击事件下设置单词翻译可见性设置
      */
     private void changeTranslationState() {
-        LogUtil.d(mReciteWordWrapper.getTranslationVisibilityState()+"  "+View.GONE);
         if (mReciteWordWrapper.getTranslationVisibilityState() == View.GONE) {
             mReciteWordWrapper.setTranslationVisibilityState(View.VISIBLE);
             setTranslationVisible();

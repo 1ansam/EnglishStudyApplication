@@ -31,6 +31,7 @@ import com.night.app.common.util.ProgressUtil;
 import com.night.app.common.util.TitleInitUtil;
 import com.night.app.consts.BusinessConsts;
 import com.night.basecore.utils.DateUtil;
+import com.night.basecore.utils.LogUtil;
 import com.night.basecore.utils.NumberUtil;
 import com.night.basecore.utils.SharedPrefsUtil;
 import com.night.basecore.utils.ToastUtil;
@@ -116,6 +117,7 @@ public class SelectWordActivity extends BaseActivity {
         int reciteNumber = mCurrentAction.getCurrentRecite(Integer.MAX_VALUE).size();
         mRecommendNumber = SharedPrefsUtil.getInt(this, SharePreferenceConsts.DAY_TARGET_NUMBER, 50) - logNumber
                 - reciteNumber;
+        LogUtil.d("logNumber "+logNumber+"   reciteNumber "+reciteNumber);
         if (mRecommendNumber < 0) {
             mRecommendNumber = 0;
         }

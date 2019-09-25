@@ -35,18 +35,21 @@ public class LogActionImpl extends BaseSQLiteActionImpl implements LogAction {
     private static final String UPDATE_LOG_SIGN          = "update " + TABLE_NAME + " set " + FIELD_LOG_SIGN
             + "=? where " + FIELD_LOG_DATE + "=?";
 
+    private static final String UPDATE_LOG               = "update " + TABLE_NAME + " set " + FIELD_LOG_NEW_NUMBER
+            + "=? ," + FIELD_LOG_REVISE_NUMBER + "=?," + FIELD_LOG_SIGN + "=? where " + FIELD_LOG_DATE + "=?";
+
     public LogActionImpl(Context context) {
         super(context);
     }
 
     @Override
     public LogWrapper getLogWrapper(String date) {
-        LogWrapper logWrapper=null;
+        LogWrapper logWrapper = null;
         database = openHelper.getReadableDatabase();
         database.beginTransaction();
         cursor = database.rawQuery(QUERY_LOG_BY_DATE, new String[] { date });
         if (cursor.moveToNext()) {
-            logWrapper= new LogWrapper(cursor.getString(getFieldIndex(FIELD_LOG_DATE)),
+            logWrapper = new LogWrapper(cursor.getString(getFieldIndex(FIELD_LOG_DATE)),
                     cursor.getInt(getFieldIndex(FIELD_LOG_NEW_NUMBER)),
                     cursor.getInt(getFieldIndex(FIELD_LOG_REVISE_NUMBER)),
                     cursor.getInt(getFieldIndex(FIELD_LOG_SIGN)));
@@ -100,9 +103,17 @@ public class LogActionImpl extends BaseSQLiteActionImpl implements LogAction {
         default:
             break;
         }
-        database=openHelper.getWritableDatabase();
+        database = openHelper.getWritableDatabase();
         database.beginTransaction();
-        database.execSQL(sql,new Object[]{number});
+        database.execSQL(sql, new Object[] { number });
+        close();
+    }
+
+    @Override
+    public void updateLogWrapper(LogWrapper wrapper) {
+        database = openHelper.getWritableDatabase();
+        database.beginTransaction();
+        database.execSQL(UPDATE_LOG, new Object[] { wrapper.getNewNumber(),wrapper.getReviseNumber(),wrapper.getSign(),wrapper.getDate() });
         close();
     }
 }
