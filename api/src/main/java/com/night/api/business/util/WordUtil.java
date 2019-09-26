@@ -21,7 +21,7 @@ public class WordUtil {
      * @return
      */
     public static int getEexpectedNextDate(CurrentWrapper wrapper) {
-        int firstDate = wrapper.getFirstDate();
+        int firstDate = wrapper.getFirstDate(); 
         int nextDate = wrapper.getNextDate();
         // 预期中应该间隔的天数
         int expectedDayAfterNumber = 1;
