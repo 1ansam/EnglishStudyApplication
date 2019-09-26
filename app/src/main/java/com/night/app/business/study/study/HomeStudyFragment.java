@@ -18,6 +18,7 @@ import com.night.app.business.study.recite.ReciteActivity;
 import com.night.app.business.study.select.book.SelectBookActivity;
 import com.night.app.business.study.study.adapter.StudyFunctionRecycleViewAdapter;
 import com.night.app.base.adapter.BaseRecyclerAdapter;
+import com.night.app.business.study.test.NumberTestActivity;
 import com.night.basecore.widget.recyclerview.DividerGridItemDecoration;
 import com.night.app.consts.BusinessConsts;
 import com.night.app.base.fragment.BaseFragment;
@@ -68,6 +69,9 @@ public class HomeStudyFragment extends BaseFragment {
                             break;
                         case R.string.study_function_my_word_book:
                             intent = new Intent(getActivity(), MyBookActivity.class);
+                            break;
+                        case R.string.study_function_test:
+                            intent = new Intent(getActivity(), NumberTestActivity.class);
                             break;
                         default:
                             break;

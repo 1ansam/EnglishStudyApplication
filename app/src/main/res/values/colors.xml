@@ -40,6 +40,7 @@
     <color name="line_dark_cyan">#A2B5CD</color>
     <color name="line_black">#000000</color>
     <color name="line_light_cyan">#EDEDED</color>
+    <color name="line_orange">#FF8C00</color>
 
     <!--文字颜色-->
     <color name="text_dark_black">#000000</color>

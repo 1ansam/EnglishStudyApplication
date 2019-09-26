@@ -183,7 +183,7 @@ public class QueryWordActivity extends BaseActivity {
         mBtnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String wordName = mEtQuery.getText().toString().trim();
+                String wordName = StyleUtil.getFormatQueryText(mEtQuery.getText().toString());
                 if (StringUtil.isEmpty(wordName)) {
                     ToastUtil.showLongToast(getBaseContext(), MessageConsts.StyleCheckConsts.NULL_WORD);
                 } else {

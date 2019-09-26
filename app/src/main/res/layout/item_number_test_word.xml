@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/number_test_layout_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/number_test_tv_word_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_20"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/number_test_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@+id/number_test_tv_word_name"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal">
+
+        <RadioButton
+            android:id="@+id/number_test_btn_a"
+            style="@style/NumberTestBtnStyle" />
+
+        <RadioButton
+            android:id="@+id/number_test_btn_b"
+            style="@style/NumberTestBtnStyle" />
+
+        <RadioButton
+            android:id="@+id/number_test_btn_c"
+            style="@style/NumberTestBtnStyle" />
+
+        <RadioButton
+            android:id="@+id/number_test_btn_d"
+            style="@style/NumberTestBtnStyle" />
+
+        <RadioButton
+            android:id="@+id/number_test_btn_e"
+            style="@style/NumberTestBtnStyle"
+            android:text="@string/number_test_not_know" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/number_test_btn_next_word"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/number_test_radio_group"
+        android:layout_marginStart="@dimen/layout_margin_horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="@dimen/layout_margin_horizontal"
+        android:background="@drawable/btn_circular_dark_cyan"
+        android:text="@string/number_test_next_word"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_size_20"
+        android:textStyle="bold" />
+</RelativeLayout>

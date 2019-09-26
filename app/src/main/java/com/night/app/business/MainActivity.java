@@ -28,7 +28,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         DatabaseUtil.packDataBase(this);
-        mLogAction=new LogActionImpl(this);
-        mLogAction.insertIntoLog(new LogWrapper(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number),0,0,0));
+        mLogAction = new LogActionImpl(this);
+        mLogAction.insertIntoLog(new LogWrapper(DateUtil.getCurrentDate2Str(DateUtil.yyyy_MM_dd_number), 0, 0, 0));
     }
+
 }

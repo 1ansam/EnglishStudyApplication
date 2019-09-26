@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_white">
+
+    <include
+        android:id="@+id/number_test_title"
+        layout="@layout/common_activity_title_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/number_test_title"
+        android:fillViewport="true">
+
+        <FrameLayout
+            android:id="@+id/number_test_layout_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/layout_margin_horizontal"
+            android:layout_marginEnd="@dimen/layout_margin_horizontal">
+
+            <RelativeLayout
+                android:id="@+id/number_test_layout_tip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/number_test_tv_last_time_test_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/number_test_last_time_test_number"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/number_test_tv_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/number_test_tv_last_time_test_number"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="12dp"
+                    android:text="@string/number_test_tip"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_18" />
+
+                <Button
+                    android:id="@+id/number_test_btn_start_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@+id/number_test_tv_tip"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_circular_dark_cyan"
+                    android:text="@string/number_test_start_test"
+                    android:textSize="@dimen/text_size_20"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/number_test_layout_select_word"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/number_test_tv_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:text="@string/number_test_score"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_20" />
+
+                <include
+                    layout="@layout/line_horizontal_dark_cyan"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/number_test_tv_score" />
+
+                <com.night.app.business.study.test.adapter.NumberTestViewPager
+                    android:id="@+id/number_test_view_pager_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/number_test_layout_come_on"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/layout_margin_horizontal"
+                android:layout_marginEnd="@dimen/layout_margin_horizontal"
+                android:visibility="gone">
+                <View
+                    android:id="@+id/center_vertical_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/number_test_tv_come_on"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="16dp"
+                    android:text="@string/number_test_come_on"
+                    android:textSize="@dimen/text_size_20"
+                    android:textColor="@color/text_black"
+                    android:gravity="center"
+                    android:layout_above="@id/center_vertical_view"/>
+
+                <Button
+                    android:id="@+id/number_test_btn_record_this_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold"
+                    android:text="@string/number_test_record_this_score"
+                    android:layout_below="@id/center_vertical_view"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/btn_circular_dark_cyan"/>
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+    </ScrollView>
+
+</RelativeLayout>

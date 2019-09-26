@@ -138,4 +138,24 @@
     <string name="next_recite_surplus_word">剩余单词：</string>
     <string name="next_recite_random_test">抽查测试</string>
 
+    <!--测试单词词汇量-->
+    <string name="number_test_tip">
+        为了确保测试结果真实，凡是不确定的词汇请选择不认识，凭猜测的正确答案与真实词汇量无关！
+        \n\n该测试结果仅供参考！要一次性测试完毕才可以记录分数哦！
+        \n\n词汇等级划分：
+        \n中考词汇\t&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1500-1600\t\n
+        高考词汇\t&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3000-3500\t\n
+        四级词汇\t&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4000-4500\t\n
+        六级词汇\t&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;5500-6000\t\n
+        专业四级\t&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;6000-7000\t\n
+        专业八级\t&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10000-120000\t\n
+        </string>
+    <string name="number_test_start_test">开始测试</string>
+    <string name="number_test_next_word">下一个</string>
+    <string name="number_test_not_know">不认识</string>
+    <string name="number_test_last_time_test_number">您上次测试的词汇量为：%s</string>
+    <string name="number_test_score">当前得分为：%s</string>
+    <string name="number_test_come_on">您上次测试的词汇量为：%s\n当前您的词汇量得分为：%s\n要继续加油哦！</string>
+    <string name="number_test_record_this_score">记录分数</string>
+
 </resources>
