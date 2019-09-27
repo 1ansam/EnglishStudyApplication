@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.night.app.R;
+import com.night.app.base.fragment.BaseFragment;
 import com.night.app.business.first.first.adapter.FunctionRecycleViewAdapter;
 import com.night.app.business.first.whitewall.adapter.WhiteWallVerticalPagerAdapter;
-import com.night.model.wrapper.first.whitewall.WhiteWallWrapper;
 import com.night.basecore.widget.circleslidingindicator.CircleSlidingIndicator;
 import com.night.basecore.widget.customimageview.widget.CustomShapeImageView;
 import com.night.basecore.widget.verticalviewpager.VerticalViewPager;
-import com.night.app.base.fragment.BaseFragment;
+import com.night.model.wrapper.first.whitewall.WhiteWallWrapper;
 
 import java.util.ArrayList;
 import java.util.List;

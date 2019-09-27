@@ -47,7 +47,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/btn_circular_cyan_50"
+                android:background="@drawable/btn_circular_dark_cyan"
                 android:text="@string/query_word_query" />
 
         </FrameLayout>

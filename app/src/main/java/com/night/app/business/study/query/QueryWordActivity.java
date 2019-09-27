@@ -187,41 +187,53 @@ public class QueryWordActivity extends BaseActivity {
                 if (StringUtil.isEmpty(wordName)) {
                     ToastUtil.showLongToast(getBaseContext(), MessageConsts.StyleCheckConsts.NULL_WORD);
                 } else {
-                    ProgressUtil.showProgress(QueryWordActivity.this, View.VISIBLE);
-                    mWordWrapper = mWordAction.getWordByName(wordName);
-                    if (mWordWrapper == null) {
-                        mWordApiAction.setWordApiListener(new WordApiAction.WordApiListener<WordEntity>() {
-                            @Override
-                            public void doAfterSuccess(WordEntity data) {
-                                ProgressUtil.showProgress(QueryWordActivity.this, View.GONE);
-                                if (data == null || StringUtil.isEmpty(data.getWord_name())) {
-                                    showWordInfo(View.GONE);
-                                    ToastUtil.showLongToast(getBaseContext(),
-                                            MessageConsts.TipConsts.NOT_FIND_THIS_WORD);
-                                } else {
-                                    WordDataBaseWrapper wordDataBaseWrapper = WordUtil
-                                            .changeEntityToDataBaseWrapper(data);
-                                    mWordAction.insertIntoWord(wordDataBaseWrapper);
-                                    mWordWrapper = WordUtil.changeEntityToWrapper(data);
-                                    showWordInfo(View.VISIBLE);
-                                }
-                            }
-
-                            @Override
-                            public void doAfterFailed(WordEntity data) {
-                                ProgressUtil.showProgress(QueryWordActivity.this, View.GONE);
-                                ToastUtil.showLongToast(getBaseContext(),
-                                        MessageConsts.InternetConsts.INTERNET_NOT_AVAILABLE);
-                            }
-                        });
-                        mWordApiAction.getWordEntity(wordName);
-                    } else {
-                        ProgressUtil.showProgress(QueryWordActivity.this, View.GONE);
-                        showWordInfo(View.VISIBLE);
+                    if(StyleUtil.isAllLetter(wordName)) {
+                        queryWord(wordName);
+                    }else{
+                        ToastUtil.showLongToast(getBaseContext(),MessageConsts.StyleCheckConsts.MUST_INPUT_ALL_LETTER);
                     }
                 }
             }
         });
+    }
+
+    /**
+     * 点击查询按钮后且输入符合单词规范的执行动作
+     * @param wordName
+     */
+    private void queryWord(String wordName){
+        ProgressUtil.showProgress(QueryWordActivity.this, View.VISIBLE);
+        mWordWrapper = mWordAction.getWordByName(wordName);
+        if (mWordWrapper == null) {
+            mWordApiAction.setWordApiListener(new WordApiAction.WordApiListener<WordEntity>() {
+                @Override
+                public void doAfterSuccess(WordEntity data) {
+                    ProgressUtil.showProgress(QueryWordActivity.this, View.GONE);
+                    if (data == null || StringUtil.isEmpty(data.getWord_name())) {
+                        showWordInfo(View.GONE);
+                        ToastUtil.showLongToast(getBaseContext(),
+                                MessageConsts.TipConsts.NOT_FIND_THIS_WORD);
+                    } else {
+                        WordDataBaseWrapper wordDataBaseWrapper = WordUtil
+                                .changeEntityToDataBaseWrapper(data);
+                        mWordAction.insertIntoWord(wordDataBaseWrapper);
+                        mWordWrapper = WordUtil.changeEntityToWrapper(data);
+                        showWordInfo(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void doAfterFailed(WordEntity data) {
+                    ProgressUtil.showProgress(QueryWordActivity.this, View.GONE);
+                    ToastUtil.showLongToast(getBaseContext(),
+                            MessageConsts.InternetConsts.INTERNET_NOT_AVAILABLE);
+                }
+            });
+            mWordApiAction.getWordEntity(wordName);
+        } else {
+            ProgressUtil.showProgress(QueryWordActivity.this, View.GONE);
+            showWordInfo(View.VISIBLE);
+        }
     }
 
     /**

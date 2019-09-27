@@ -7,6 +7,7 @@ public class MessageConsts {
 
     public static class StyleCheckConsts {
         public static final String NULL_WORD = "单词为空";
+        public static final String MUST_INPUT_ALL_LETTER="请输入正确格式的单词";
     }
 
     public static class TipConsts {

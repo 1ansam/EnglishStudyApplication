@@ -4,10 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StyleUtil {
-    /**
+    /**s'tri'n'g
      * 表示连续多个空格
      */
-    private static final Pattern p = Pattern.compile("\\s{2,}|\t");
+    public static final Pattern CONTINUOUS_SPACE = Pattern.compile("\\s{2,}|\t");
+
+    public static final Pattern ALL_LETTER=Pattern.compile("/^[a-zA-Z]+$/");
 
     /**
      * 格式化单词音标
@@ -31,7 +33,25 @@ public class StyleUtil {
      * @return
      */
     public static String getFormatQueryText(String text){
-        Matcher m = p.matcher(text);
+        Matcher m = CONTINUOUS_SPACE.matcher(text);
         return m.replaceAll(" ");
     }
+
+    /**
+     * 判断是否除了空格以外都是字母
+     * @param str
+     * @return
+     */
+    public static boolean isAllLetter(String str){
+        String tempStr=str;
+        tempStr=tempStr.replace(" ","");
+        Matcher matcher =ALL_LETTER.matcher(tempStr);
+        if(matcher.matches()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
