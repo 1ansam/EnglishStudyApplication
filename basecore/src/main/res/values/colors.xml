@@ -11,7 +11,17 @@
 
     <color name="dark_cyan">#A2B5CD</color>
 
-<!--    基本颜色-->
+    <!--    基本颜色-->
     <color name="white">#ffffff</color>
     <color name="cyan">#ADD8E6</color>
+    <color name="transparent">#00000000</color>
+
+
+<!--    弹窗-->
+    <color name="dialog_title_text">#000000</color>
+    <color name="dialog_message_text">#444444</color>
+    <color name="dialog_line">#A2B5CD</color>
+    <color name="dialog_button">#00000000</color>
+    <color name="dialog_button_text">#000000</color>
+
 </resources>

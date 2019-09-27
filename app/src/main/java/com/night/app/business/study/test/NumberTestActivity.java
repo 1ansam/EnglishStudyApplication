@@ -117,9 +117,9 @@ public class NumberTestActivity extends BaseActivity {
         mBtnStartTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mLayoutTip.startAnimation(TranslateAnimationUtil.getHideAnim(500,"right"));
+                mLayoutTip.startAnimation(TranslateAnimationUtil.getHideAnim(500,TranslateAnimationUtil.DIRECTION_RIGHT));
                 mLayoutTip.setVisibility(View.GONE);
-                mLayoutSelectWord.startAnimation(TranslateAnimationUtil.getShowAnim(500,"right"));
+                mLayoutSelectWord.startAnimation(TranslateAnimationUtil.getShowAnim(500,TranslateAnimationUtil.DIRECTION_RIGHT));
                 mLayoutSelectWord.setVisibility(View.VISIBLE);
             }
         });

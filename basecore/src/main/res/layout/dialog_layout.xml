@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
+
+    <LinearLayout
+        android:id="@+id/dialog_layout_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/layout_circular_white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:gravity="center"
+            android:text="标题"
+            android:textColor="@color/dialog_title_text"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold" />
+
+        <include
+            android:id="@+id/dialog_horizontal_line_title"
+            layout="@layout/dialog_horizontal_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:id="@+id/dialog_tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="28dp"
+            android:lineSpacingExtra="12dp"
+            android:text="两只老虎两只老虎跑得快，跑得快，一直么有尾巴，一直没有耳朵，真奇怪!"
+            android:textColor="@color/dialog_message_text"
+            android:textSize="@dimen/text_size_16" />
+
+        <include
+            android:id="@+id/dialog_horizontal_line_message"
+            layout="@layout/dialog_horizontal_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:id="@+id/dialog_layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dialog_btn_negative"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/dialog_button"
+                android:textColor="@color/dialog_button_text"
+                android:textSize="@dimen/text_size_16"
+                android:visibility="gone"/>
+
+            <include
+                android:id="@+id/dialog_button_vertical_line"
+                layout="@layout/dialog_vertical_line"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/dialog_btn_positive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/dialog_button"
+                android:visibility="gone"
+                android:textColor="@color/dialog_button_text"
+                android:textSize="@dimen/text_size_16" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dialog_iv_close"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:visibility="gone"
+        android:layout_below="@id/dialog_layout_body"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:padding="10dp"
+        android:src="@mipmap/icon_close_white" />
+</RelativeLayout>

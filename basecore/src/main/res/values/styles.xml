@@ -8,4 +8,26 @@
         <item name="colorAccent">#A2B5CD</item>
     </style>
 
+    <style name="dialog_tran" parent="android:style/Theme.Dialog">
+<!--        边框-->
+        <item name="android:windowFrame">@null</item>
+<!--        无标题-->
+        <item name="android:windowNoTitle">true</item>
+<!--        背景-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+<!--        是否浮在现在activity上-->
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+<!--        背景是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+<!--        背景模糊程度-->
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="dialog_untran" parent="dialog_tran">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
 </resources>

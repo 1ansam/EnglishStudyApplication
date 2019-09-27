@@ -3,25 +3,34 @@ package com.night.basecore.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 public class StyleUtil {
-    /**s'tri'n'g
+    /**
      * 表示连续多个空格
      */
     public static final Pattern CONTINUOUS_SPACE = Pattern.compile("\\s{2,}|\t");
 
-    public static final Pattern ALL_LETTER=Pattern.compile("/^[a-zA-Z]+$/");
+    /**
+     * 全部为字母
+     */
+    public static final Pattern ALL_LETTER=Pattern.compile("^[a-zA-Z]+$");
+
+    private static final String AM="am";
+
+    private static final String EN="en";
 
     /**
      * 格式化单词音标
      * @param wordPh
-     * @param country en英国 am美国
+     * @param country EN英国 AM美国
      * @return
      */
     public static String getWordPh(String wordPh, String country) {
-        if ("en".equals(country)) {
+        if (EN.equals(country)) {
             return "英/" + wordPh + "/";
         }
-        if ("am".equals(country)) {
+        if (AM.equals(country)) {
             return "美/" + wordPh + "/";
         }
         return "/" + wordPh + "/";
@@ -46,12 +55,7 @@ public class StyleUtil {
         String tempStr=str;
         tempStr=tempStr.replace(" ","");
         Matcher matcher =ALL_LETTER.matcher(tempStr);
-        if(matcher.matches()){
-            return true;
-        }else{
-            return false;
-        }
+        return matcher.matches();
     }
-
 
 }
